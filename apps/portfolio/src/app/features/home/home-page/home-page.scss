@@ -1,3 +1,24 @@
+.shell {
+  min-height: 100vh;
+}
+
+.shell__main {
+  min-width: 0;
+}
+
 .home-page {
-  display: block;
+  width: min(100%, calc(var(--content-max) + 2 * var(--space-5)));
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+@media (min-width: 960px) {
+  .shell__main {
+    margin-left: var(--panel-width);
+  }
+
+  .home-page {
+    padding-left: var(--space-7);
+    padding-right: var(--space-7);
+  }
 }

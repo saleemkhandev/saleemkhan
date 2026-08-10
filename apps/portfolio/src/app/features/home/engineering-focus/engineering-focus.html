@@ -1,27 +1,26 @@
 <section id="focus" class="focus" aria-labelledby="focus-heading">
-  <div class="focus__inner">
-    <div class="focus__intro">
-      <p class="focus__eyebrow">Engineering focus</p>
-      <h2 id="focus-heading" class="focus__heading">
-        Where I spend my attention
-      </h2>
-      <p class="focus__lede">
-        A practical set of interests shaped by roughly a decade of building
-        software, with particular depth in frontend engineering and
-        architecture.
-      </p>
-    </div>
+  <div class="focus__intro">
+    <p class="focus__eyebrow">Engineering focus</p>
+    <h2 id="focus-heading" class="focus__heading">
+      Where I spend my attention
+    </h2>
+    <p class="focus__lede">
+      A practical set of interests shaped by roughly a decade of building
+      software, with particular depth in frontend engineering and architecture.
+    </p>
+  </div>
 
-    <ul class="focus__list">
-      @for (area of focusAreas; track area.title; let index = $index) {
-      <li class="focus__item" [style.--delay]="index * 40 + 'ms'">
-        <p class="focus__index" aria-hidden="true">
-          {{ index + 1 < 10 ? '0' + (index + 1) : index + 1 }}
-        </p>
-        <h3 class="focus__title">{{ area.title }}</h3>
+  <ul class="focus__list">
+    @for (area of focusAreas; track area.title; let index = $index) {
+      <li class="focus__item" [style.--delay]="index * 60 + 'ms'">
+        <div class="focus__row">
+          <p class="focus__index" aria-hidden="true">
+            {{ index + 1 < 10 ? '0' + (index + 1) : index + 1 }}
+          </p>
+          <h3 class="focus__title">{{ area.title }}</h3>
+        </div>
         <p class="focus__description">{{ area.description }}</p>
       </li>
-      }
-    </ul>
-  </div>
+    }
+  </ul>
 </section>

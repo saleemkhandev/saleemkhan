@@ -29,16 +29,7 @@ body {
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   color: var(--color-ink);
-  background-color: var(--color-bg);
-  background-image:
-    radial-gradient(
-      1200px 600px at 12% -10%,
-      rgb(15 95 90 / 10%),
-      transparent 55%
-    ),
-    radial-gradient(900px 500px at 90% 0%, rgb(18 21 28 / 5%), transparent 50%),
-    linear-gradient(180deg, var(--color-bg-elevated), var(--color-bg) 36%);
-  background-attachment: fixed;
+  background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -74,6 +65,11 @@ h2,
 h3,
 p {
   margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 .sr-only {

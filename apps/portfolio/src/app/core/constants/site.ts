@@ -20,13 +20,26 @@ export const SITE = {
   email: 'hello@saleemkhan.dev',
   tagline:
     'Building scalable software, exploring architecture, and documenting the journey from Senior Engineer to Staff Engineer and beyond.',
+  shortBio:
+    'Senior Software Engineer focused on Angular, TypeScript, and frontend architecture. Available for thoughtful engineering conversations.',
+  biography:
+    'I am a Senior Software Engineer with roughly a decade of experience building software, with particular depth in frontend engineering. This site is my public engineering home — a place to share architecture thinking, technical experiments, and the journey toward Staff Engineer and architectural leadership.',
   description:
     'Personal engineering portfolio and laboratory of Saleem Khan — Senior Software Engineer focused on Angular, TypeScript, frontend architecture, and systems thinking.',
+  portrait: {
+    src: '/images/saleem-khan.png',
+    alt: 'Portrait of Saleem Khan',
+  },
+  rotatingRoles: [
+    'Angular Specialist',
+    'Frontend Architect',
+    'Full-Stack Engineer',
+  ] as const,
   navigation: [
-    { label: 'About', href: '#journey' },
-    { label: 'Work', href: '#focus' },
-    { label: 'Projects', href: '#focus' },
-    { label: 'Writing', href: '#journey' },
+    { label: 'Intro', href: '#intro' },
+    { label: 'About', href: '#about' },
+    { label: 'Focus', href: '#focus' },
+    { label: 'Journey', href: '#journey' },
   ] as const satisfies readonly NavItem[],
   focusAreas: [
     {
@@ -72,7 +85,7 @@ export const SITE = {
     },
     {
       label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/saleemkhan',
+      href: 'https://www.linkedin.com/in/saleemkhan17',
     },
   ] as const satisfies readonly SocialLink[],
 } as const;

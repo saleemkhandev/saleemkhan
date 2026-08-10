@@ -40,7 +40,28 @@ Reasons:
 
 Nx was **not** chosen because “monorepo automatically means Nx.” A plain Angular CLI workspace would have been enough for a single static site. Nx is justified here by the planned multi-app engineering lab.
 
-If the repository ever stopped growing beyond one app, Nx would still be acceptable, but it would no longer be necessary.
+## Current application shape
+
+```text
+apps/portfolio/src/app/
+├── core/constants/     # site content and typed config
+├── layout/
+│   ├── profile-panel/  # fixed left identity panel
+│   └── site-footer/
+└── features/home/
+    ├── home-page/      # shell composition + SEO metadata
+    ├── intro/          # rotating role intro
+    ├── biography/
+    ├── engineering-focus/
+    └── journey/
+```
+
+The public landing page currently uses a Deebo-inspired split layout:
+
+- fixed left profile panel with portrait and identity
+- scrolling main column for intro, biography, focus, and journey
+
+This is an intentional product choice for the current milestone. Shared libraries are still deferred until real reuse appears.
 
 ## Why standalone Angular components?
 
@@ -59,13 +80,13 @@ NgModules are avoided for application architecture unless a dependency requires 
 
 Signals provide local, typed, fine-grained state with less ceremony than RxJS for UI state.
 
-Initial usage is intentionally modest:
+Current usage is intentionally modest:
 
-- local component state such as mobile navigation open/closed
+- intro role rotator state (`activeIndex`, `animating`)
 - no global store
 - no Signals-for-everything abstraction layer
 
-RxJS remains available where stream semantics are genuinely useful.
+RxJS remains available where stream semantics are useful (for example, the intro rotation interval).
 
 ## Why SSG/prerender instead of a long-lived Node SSR server?
 
@@ -112,6 +133,14 @@ Vercel fits the initial deployment goals:
 - straightforward custom-domain attachment for `saleemkhan.dev`
 
 AWS, Cloudflare, databases, and observability can be introduced later when there is a concrete operational need.
+
+## Content honesty
+
+The portfolio should not invent achievements, employers, degrees, or titles.
+
+- Current title: Senior Software Engineer
+- Staff Engineer / Architect: growth direction, not current titles
+- Focus areas describe interests and strengths, not scored skill meters
 
 ## Why the architecture is intentionally incremental?
 

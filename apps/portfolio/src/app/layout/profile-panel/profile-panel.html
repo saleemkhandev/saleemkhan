@@ -1,0 +1,58 @@
+<aside class="profile" aria-label="Profile">
+  <div class="profile__body">
+    <div class="profile__photo-wrap">
+      <img
+        class="profile__photo"
+        [src]="site.portrait.src"
+        [alt]="site.portrait.alt"
+        width="320"
+        height="320"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+
+    <div class="profile__identity">
+      <h1 class="profile__name">
+        <span class="profile__name-first">Saleem</span>
+        <span class="profile__name-last">Khan</span>
+      </h1>
+      <p class="profile__title">{{ site.title }}</p>
+      <p class="profile__bio">{{ site.shortBio }}</p>
+    </div>
+
+    <nav class="profile__nav" aria-label="Primary">
+      <ul class="profile__nav-list">
+        @for (item of site.navigation; track item.label) {
+        <li>
+          <a class="profile__nav-link" [href]="item.href"> {{ item.label }} </a>
+        </li>
+        }
+      </ul>
+    </nav>
+
+    <ul class="profile__social">
+      @for (link of site.social; track link.label) {
+      <li>
+        <a
+          class="profile__social-link"
+          [href]="link.href"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ link.label }}
+        </a>
+      </li>
+      }
+    </ul>
+
+    <a
+      class="profile__cta"
+      [href]="githubHref"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View GitHub
+    </a>
+  </div>
+</aside>

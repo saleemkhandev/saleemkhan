@@ -1,0 +1,228 @@
+:host {
+  display: block;
+}
+
+.profile {
+  background: var(--color-bg-elevated);
+  border-bottom: 1px solid var(--color-border);
+  animation: panel-in var(--duration-med) var(--ease-out) both;
+}
+
+.profile__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-6) var(--space-5);
+}
+
+.profile__photo-wrap {
+  width: 10.5rem;
+  height: 10.5rem;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 4px solid rgb(255 255 255 / 8%);
+  background: #111;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 6%);
+}
+
+.profile__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.profile__photo-wrap:hover .profile__photo {
+  transform: scale(1.06);
+}
+
+.profile__identity {
+  margin-top: var(--space-5);
+  width: 100%;
+}
+
+.profile__name {
+  display: grid;
+  gap: 0.1em;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2.15rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.profile__name-first {
+  color: var(--color-accent);
+}
+
+.profile__name-last {
+  color: var(--color-ink);
+}
+
+.profile__title {
+  margin-top: var(--space-3);
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.profile__bio {
+  margin-top: var(--space-4);
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.profile__nav {
+  margin-top: var(--space-5);
+  width: 100%;
+}
+
+.profile__nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-4);
+  list-style: none;
+}
+
+.profile__nav-link {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.profile__nav-link:hover,
+.profile__nav-link:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+.profile__social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  list-style: none;
+}
+
+.profile__social-link {
+  color: var(--color-ink-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.profile__social-link:hover,
+.profile__social-link:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+.profile__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3rem;
+  margin-top: var(--space-5);
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.profile__cta:hover,
+.profile__cta:focus-visible {
+  background: var(--color-accent-strong);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 960px) {
+  :host {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: var(--panel-width);
+    height: 100vh;
+    height: 100svh;
+  }
+
+  .profile {
+    height: 100%;
+    overflow: auto;
+    overscroll-behavior: contain;
+    border-bottom: 0;
+    border-right: 1px solid var(--color-border);
+    animation-name: panel-in-desktop;
+  }
+
+  .profile__body {
+    min-height: 100%;
+    padding: var(--space-7) var(--space-5);
+  }
+
+  .profile__photo-wrap {
+    width: 11.5rem;
+    height: 11.5rem;
+  }
+
+  .profile__nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .profile__cta {
+    margin-top: auto;
+  }
+}
+
+@keyframes panel-in-desktop {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile,
+  .profile__photo {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+}

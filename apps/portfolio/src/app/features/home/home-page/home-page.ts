@@ -6,13 +6,23 @@ import {
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { SITE } from '../../../core/constants/site';
+import { ProfilePanel } from '../../../layout/profile-panel/profile-panel';
+import { SiteFooter } from '../../../layout/site-footer/site-footer';
+import { Biography } from '../biography/biography';
 import { EngineeringFocus } from '../engineering-focus/engineering-focus';
-import { Hero } from '../hero/hero';
+import { Intro } from '../intro/intro';
 import { Journey } from '../journey/journey';
 
 @Component({
   selector: 'app-home-page',
-  imports: [Hero, EngineeringFocus, Journey],
+  imports: [
+    ProfilePanel,
+    Intro,
+    Biography,
+    EngineeringFocus,
+    Journey,
+    SiteFooter,
+  ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +51,7 @@ export class HomePage implements OnInit {
     this.meta.updateTag({ property: 'og:url', content: SITE.domain });
     this.meta.updateTag({
       property: 'og:image',
-      content: `${SITE.domain}/og.svg`,
+      content: `${SITE.domain}${SITE.portrait.src}`,
     });
     this.meta.updateTag({
       name: 'twitter:card',
@@ -54,7 +64,7 @@ export class HomePage implements OnInit {
     });
     this.meta.updateTag({
       name: 'twitter:image',
-      content: `${SITE.domain}/og.svg`,
+      content: `${SITE.domain}${SITE.portrait.src}`,
     });
   }
 }

@@ -1,0 +1,133 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: min(72vh, 38rem);
+  padding: var(--space-8) 0 var(--space-7);
+  animation: rise-in var(--duration-med) var(--ease-out) both;
+}
+
+.intro__eyebrow {
+  color: var(--color-ink-soft);
+  font-size: var(--text-lg);
+  font-weight: 500;
+}
+
+.intro__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  margin-top: var(--space-3);
+  min-height: 1.15em;
+  overflow: hidden;
+}
+
+.intro__role {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.intro__role--out {
+  opacity: 0;
+  transform: translateY(0.45em);
+}
+
+.intro__cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  margin-left: 0.12em;
+  background: var(--color-accent);
+  animation: blink 1s steps(1) infinite;
+}
+
+.intro__lede {
+  max-width: 38rem;
+  margin-top: var(--space-5);
+  color: var(--color-ink-soft);
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+}
+
+.intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.intro__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.8rem 1.35rem;
+  border-radius: 999px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.intro__cta--primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.intro__cta--primary:hover,
+.intro__cta--primary:focus-visible {
+  background: var(--color-accent-strong);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.intro__cta--secondary {
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-ink);
+}
+
+.intro__cta--secondary:hover,
+.intro__cta--secondary:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent-strong);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro,
+  .intro__role,
+  .intro__cursor {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+}

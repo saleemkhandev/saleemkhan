@@ -1,11 +1,7 @@
 .focus {
-  padding: 0 var(--space-5) var(--space-8);
-  scroll-margin-top: calc(var(--header-height) + var(--space-4));
-}
-
-.focus__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
+  padding: var(--space-7) 0;
+  border-top: 1px solid var(--color-border);
+  scroll-margin-top: var(--space-5);
 }
 
 .focus__intro {
@@ -14,7 +10,6 @@
 }
 
 .focus__eyebrow {
-  margin-bottom: var(--space-3);
   color: var(--color-accent);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -24,11 +19,11 @@
 }
 
 .focus__heading {
+  margin-top: var(--space-3);
   font-family: var(--font-display);
   font-size: var(--text-2xl);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: var(--tracking-tight);
-  line-height: var(--leading-tight);
 }
 
 .focus__lede {
@@ -39,25 +34,22 @@
 
 .focus__list {
   display: grid;
-  gap: var(--space-4);
-  margin: 0;
-  padding: 0;
+  gap: var(--space-5);
   list-style: none;
 }
 
 .focus__item {
-  padding: var(--space-5) 0;
-  border-top: 1px solid var(--color-border);
-  animation: focus-fade var(--duration-med) var(--ease-out) both;
+  animation: rise-in var(--duration-med) var(--ease-out) both;
   animation-delay: var(--delay, 0ms);
 }
 
-.focus__item:last-child {
-  border-bottom: 1px solid var(--color-border);
+.focus__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
 }
 
 .focus__index {
-  margin-bottom: var(--space-3);
   color: var(--color-ink-muted);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -75,12 +67,13 @@
   max-width: 36rem;
   margin-top: var(--space-3);
   color: var(--color-ink-soft);
+  font-size: var(--text-sm);
 }
 
-@keyframes focus-fade {
+@keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(14px);
   }
 
   to {
@@ -93,9 +86,13 @@
   .focus__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--space-7);
+    row-gap: var(--space-6);
   }
+}
 
-  .focus__item:nth-last-child(-n + 2) {
-    border-bottom: 1px solid var(--color-border);
+@media (prefers-reduced-motion: reduce) {
+  .focus__item {
+    animation: none;
+    transform: none;
   }
 }

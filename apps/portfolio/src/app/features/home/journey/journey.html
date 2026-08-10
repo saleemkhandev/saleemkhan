@@ -1,22 +1,25 @@
 <section id="journey" class="journey" aria-labelledby="journey-heading">
-  <div class="journey__inner">
-    <div class="journey__copy">
-      <p class="journey__eyebrow">Engineering journey</p>
-      <h2 id="journey-heading" class="journey__heading">
-        This site is becoming an engineering laboratory
-      </h2>
-      <p class="journey__lede">
-        saleemkhan.dev starts here as a polished landing page, and will grow
-        into a place to document decisions, explore architecture, and share the
-        work of moving from Senior Software Engineer toward Staff Engineer and
-        architectural leadership.
-      </p>
-    </div>
-
-    <ul class="journey__list">
-      @for (item of destinations; track item) {
-      <li class="journey__item">{{ item }}</li>
-      }
-    </ul>
+  <div class="journey__copy">
+    <p class="journey__eyebrow">Engineering journey</p>
+    <h2 id="journey-heading" class="journey__heading">
+      This site is becoming an engineering laboratory
+    </h2>
+    <p class="journey__lede">
+      saleemkhan.dev starts here as a polished landing page, and will grow into
+      a place to document decisions, explore architecture, and share the work of
+      moving from Senior Software Engineer toward Staff Engineer and
+      architectural leadership.
+    </p>
   </div>
+
+  <ol class="journey__list">
+    @for (item of destinations; track item; let index = $index) {
+    <li class="journey__item" [style.--delay]="index * 70 + 'ms'">
+      <span class="journey__index" aria-hidden="true">
+        {{ index + 1 < 10 ? '0' + (index + 1) : index + 1 }}
+      </span>
+      <span>{{ item }}</span>
+    </li>
+    }
+  </ol>
 </section>

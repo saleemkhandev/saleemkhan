@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SITE } from '../../../core/constants/site';
+import { SITE } from '../../core/constants/site';
 
 @Component({
-  selector: 'app-hero',
-  templateUrl: './hero.html',
-  styleUrl: './hero.scss',
+  selector: 'app-profile-panel',
+  templateUrl: './profile-panel.html',
+  styleUrl: './profile-panel.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Hero {
+export class ProfilePanel {
   protected readonly site = SITE;
   protected readonly githubHref = SITE.social[0].href;
 }

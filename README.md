@@ -23,10 +23,11 @@ Career direction represented here:
 
 - **Monorepo:** Nx + pnpm
 - **Primary app:** `apps/portfolio`
+- **Layout:** fixed profile panel + scrolling content (Deebo-inspired)
 - **Angular:** latest stable Angular 22 with standalone components, Signals, and modern control flow
 - **Rendering:** static prerender (SSG) via Angular SSR tooling
 - **Styling:** SCSS design tokens, no premature design system package
-- **State:** local component state and Signals only
+- **State:** local component state and Signals only (intro role rotator)
 - **Hosting target:** Vercel → `saleemkhan.dev`
 
 See [docs/architecture.md](docs/architecture.md) for decision records.
