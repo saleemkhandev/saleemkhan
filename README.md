@@ -13,7 +13,6 @@ This repository is the long-term home for:
 - technical experiments
 - future playgrounds and labs
 
-It is intentionally built with Angular to reflect deep frontend engineering focus, especially around Angular, TypeScript, and application architecture.
 
 Career direction represented here:
 
@@ -23,7 +22,7 @@ Career direction represented here:
 
 - **Monorepo:** Nx + pnpm
 - **Primary app:** `apps/portfolio`
-- **Layout:** fixed profile panel + scrolling content (Deebo-inspired)
+- **Layout:** fixed profile panel + scrolling content
 - **Angular:** latest stable Angular 22 with standalone components, Signals, and modern control flow
 - **Rendering:** static prerender (SSG) via Angular SSR tooling
 - **Styling:** SCSS design tokens, no premature design system package
