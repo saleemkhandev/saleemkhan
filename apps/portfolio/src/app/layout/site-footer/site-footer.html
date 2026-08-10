@@ -1,0 +1,27 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__identity">
+      <p class="site-footer__name">{{ site.name }}</p>
+      <p class="site-footer__title">{{ site.title }}</p>
+    </div>
+
+    <ul class="site-footer__links">
+      @for (link of site.social; track link.label) {
+      <li>
+        <a
+          class="site-footer__link"
+          [href]="link.href"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ link.label }}
+        </a>
+      </li>
+      }
+    </ul>
+
+    <p class="site-footer__copy">
+      © {{ year }} {{ site.name }}. All rights reserved.
+    </p>
+  </div>
+</footer>

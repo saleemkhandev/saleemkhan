@@ -1,0 +1,36 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="/" aria-label="Saleem Khan home">
+      <span class="site-header__brand-mark" aria-hidden="true"></span>
+      <span class="site-header__brand-name">{{ site.name }}</span>
+    </a>
+
+    <button
+      type="button"
+      class="site-header__menu-button"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="site-navigation"
+      (click)="toggleMenu()"
+    >
+      <span class="sr-only">{{ menuOpen() ? 'Close menu' : 'Open menu' }}</span>
+      <span class="site-header__menu-icon" aria-hidden="true"></span>
+    </button>
+
+    <nav
+      id="site-navigation"
+      class="site-header__nav"
+      [class.site-header__nav--open]="menuOpen()"
+      aria-label="Primary"
+    >
+      <ul class="site-header__list">
+        @for (item of site.navigation; track item.label) {
+        <li>
+          <a class="site-header__link" [href]="item.href" (click)="closeMenu()">
+            {{ item.label }}
+          </a>
+        </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
