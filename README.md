@@ -14,9 +14,6 @@ This repository is the long-term home for:
 - future playgrounds and labs
 
 
-Career direction represented here:
-
-`Senior Software Engineer → Staff Engineer → Frontend Architect / Software Architect`
 
 ## Architecture
 
@@ -109,35 +106,7 @@ pnpm typecheck
 pnpm format
 ```
 
-## Deployment direction
 
-Intended flow:
-
-```text
-Developer → Git → GitHub → Vercel → saleemkhan.dev
-```
-
-Vercel should build with:
-
-```bash
-pnpm exec nx build portfolio --configuration=production
-```
-
-and publish:
-
-```text
-dist/apps/portfolio/browser
-```
-
-DNS for `saleemkhan.dev` is managed at the registrar (Spaceship) and should point to Vercel after the project is connected.
-
-## Roadmap
-
-Near-term:
-
-- deploy the landing page to Vercel
-- attach `saleemkhan.dev`
-- add About / Experience / Projects content with real substance
 
 Later, only when justified:
 
