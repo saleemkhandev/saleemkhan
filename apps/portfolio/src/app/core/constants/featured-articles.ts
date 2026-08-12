@@ -33,6 +33,14 @@ export const BLOG_INDEX_PATH = '/blog';
 
 export const FEATURED_ARTICLES = [
   {
+    slug: 'from-pull-request-to-production',
+    title: 'From Pull Request to Production',
+    description:
+      'The PR-driven workflow behind this platform: GitHub Actions as the quality gate, Nx affected checks, Vercel previews, and production deploys that stay out of CI.',
+    publishedAt: '2026-08-13',
+    tags: ['ci', 'nx', 'vercel', 'architecture'],
+  },
+  {
     slug: 'frontend-architecture',
     title: 'Frontend Architecture for a Personal Platform',
     description:
