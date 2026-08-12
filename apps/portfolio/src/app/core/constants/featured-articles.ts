@@ -33,10 +33,18 @@ export const BLOG_INDEX_PATH = '/blog';
 
 export const FEATURED_ARTICLES = [
   {
+    slug: 'from-pull-request-to-production',
+    title: 'From Pull Request to Production',
+    description:
+      'The PR-driven workflow behind this platform: GitHub Actions as the quality gate, Nx affected checks, Vercel previews, and production deploys that stay out of CI.',
+    publishedAt: '2026-08-13',
+    tags: ['ci', 'nx', 'vercel', 'architecture'],
+  },
+  {
     slug: 'frontend-architecture',
     title: 'Frontend Architecture for a Personal Platform',
     description:
-      'A pragmatic layering model for Angular apps that stay thin, avoid speculative libraries, and still leave room to grow.',
+      'How this Angular platform stays thin: app boundaries, a Blog-local content contract, and Portfolio linking to Blog through public URLs only.',
     publishedAt: '2026-08-05',
     tags: ['frontend-architecture', 'angular', 'architecture'],
   },
@@ -44,7 +52,7 @@ export const FEATURED_ARTICLES = [
     slug: 'building-an-angular-monorepo',
     title: 'Building an Angular Monorepo',
     description:
-      'How saleem-platform grew from a single portfolio into an Nx workspace with independently buildable applications.',
+      'Why this site became an Nx workspace when Blog appeared — and how two Angular apps stay independently deployable under one domain.',
     publishedAt: '2026-08-01',
     tags: ['angular', 'nx', 'monorepo'],
   },
