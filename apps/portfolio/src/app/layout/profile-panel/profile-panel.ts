@@ -9,5 +9,4 @@ import { SITE } from '../../core/constants/site';
 })
 export class ProfilePanel {
   protected readonly site = SITE;
-  protected readonly githubHref = SITE.social[0].href;
 }
