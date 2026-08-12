@@ -1,16 +1,20 @@
 <section id="intro" class="intro" aria-labelledby="intro-heading">
-  <p class="intro__eyebrow">Hello! I'm a</p>
-  <h2 id="intro-heading" class="intro__heading">
-    <span class="intro__role" [class.intro__role--out]="animating()">
-      {{ roles[activeIndex()] }}
-    </span>
-    <span class="intro__cursor" aria-hidden="true"></span>
-  </h2>
-  <p class="intro__lede">{{ site.tagline }}</p>
-  <div class="intro__actions">
-    <a class="intro__cta intro__cta--primary" href="#experience"
-      >Explore my experience</a
-    >
-    <a class="intro__cta intro__cta--secondary" href="#about">About me</a>
+  <div class="intro__copy">
+    <p class="intro__eyebrow">Hello! I'm a</p>
+    <h2 id="intro-heading" class="intro__heading">
+      <span class="intro__role" [class.intro__role--out]="animating()">
+        {{ roles[activeIndex()] }}
+      </span>
+      <span class="intro__cursor" aria-hidden="true"></span>
+    </h2>
+    <p class="intro__lede">{{ site.tagline }}</p>
+    <div class="intro__actions">
+      <a class="intro__cta intro__cta--primary" href="#experience"
+        >Explore my experience</a
+      >
+      <a class="intro__cta intro__cta--secondary" href="#about">About me</a>
+    </div>
   </div>
+
+  <app-platform-scene class="intro__scene" />
 </section>

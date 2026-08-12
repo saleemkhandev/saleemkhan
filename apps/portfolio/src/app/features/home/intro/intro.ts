@@ -9,9 +9,11 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { interval } from 'rxjs';
 import { SITE } from '../../../core/constants/site';
+import { PlatformScene } from '../../../ui/platform-scene/platform-scene';
 
 @Component({
   selector: 'app-intro',
+  imports: [PlatformScene],
   templateUrl: './intro.html',
   styleUrl: './intro.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

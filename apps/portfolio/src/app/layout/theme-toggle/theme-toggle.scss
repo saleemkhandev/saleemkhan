@@ -1,0 +1,46 @@
+:host {
+  display: inline-flex;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-ink-soft);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--color-accent-strong);
+  border-color: var(--color-border-strong);
+  background: var(--color-accent-soft);
+}
+
+.theme-toggle__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.theme-toggle__moon {
+  display: none;
+}
+
+:host-context([data-theme='light']) .theme-toggle__sun {
+  display: none;
+}
+
+:host-context([data-theme='light']) .theme-toggle__moon {
+  display: block;
+}

@@ -1,0 +1,29 @@
+<figure class="platform-scene">
+  <div
+    class="platform-scene__space"
+    aria-hidden="true"
+    (pointermove)="onPointerMove($event)"
+    (pointerleave)="onPointerLeave($event)"
+  >
+    <div class="platform-scene__turn">
+      <span class="platform-scene__ring platform-scene__ring--outer"></span>
+      <span class="platform-scene__ring platform-scene__ring--inner"></span>
+      <span class="platform-scene__core">
+        <span class="platform-scene__core-kicker">core</span>
+        <span class="platform-scene__core-label">Platform</span>
+      </span>
+      @for (node of nodes; track node.id) {
+      <span
+        class="platform-scene__node"
+        [style.--yaw.deg]="node.yaw"
+        [style.--lift]="node.lift"
+      >
+        <span class="platform-scene__chip">{{ node.label }}</span>
+      </span>
+      }
+    </div>
+  </div>
+  <figcaption class="platform-scene__caption">
+    Angular apps in an Nx monorepo, independently deployed.
+  </figcaption>
+</figure>

@@ -1,0 +1,42 @@
+:host {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-ink-soft);
+  font: inherit;
+  cursor: pointer;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-ink-muted);
+}
+
+.theme-toggle__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.theme-toggle__moon {
+  display: none;
+}
+
+:host-context([data-theme='light']) .theme-toggle__sun {
+  display: none;
+}
+
+:host-context([data-theme='light']) .theme-toggle__moon {
+  display: block;
+}

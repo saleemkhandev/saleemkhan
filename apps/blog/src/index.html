@@ -10,7 +10,32 @@
       content="Engineering blog by Saleem Khan — articles on frontend architecture, Angular, Nx, and software engineering."
     />
     <meta name="author" content="Saleem Khan" />
-    <meta name="theme-color" content="#0d0d0d" />
+    <meta name="theme-color" content="#101010" />
+    <script>
+      (function () {
+        var key = 'saleemkhan-theme';
+        var theme = 'dark';
+        try {
+          var stored = localStorage.getItem(key);
+          if (stored === 'light' || stored === 'dark') {
+            theme = stored;
+          } else if (
+            window.matchMedia('(prefers-color-scheme: light)').matches
+          ) {
+            theme = 'light';
+          }
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.setAttribute(
+            'content',
+            theme === 'light' ? '#f6f3ee' : '#101010',
+          );
+        }
+      })();
+    </script>
     <meta name="robots" content="index, follow" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link
