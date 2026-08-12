@@ -97,7 +97,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node --test --experimental-strip-types --test-reporter=spec apps/blog/scripts/lib/content-validation.spec.mjs apps/blog/src/app/core/content/article-queries.spec.mts apps/blog/src/app/core/content/format-article-date.spec.mts"
+        "command": "node --test --experimental-strip-types --test-reporter=spec apps/blog/scripts/lib/content-validation.spec.mjs apps/blog/src/app/core/content/article-queries.spec.mts apps/blog/src/app/core/content/format-article-date.spec.mts apps/blog/src/app/core/theme/theme.spec.mts"
       }
     },
     "serve-static": {

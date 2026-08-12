@@ -2,30 +2,34 @@
   <div class="site-header__inner">
     <a class="site-header__brand" routerLink="/">Saleem Khan</a>
 
-    <nav class="site-header__nav" aria-label="Primary">
-      <a
-        class="site-header__link"
-        routerLink="/"
-        routerLinkActive="is-active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Blog
-      </a>
-      <a
-        class="site-header__link"
-        href="https://saleemkhan.dev/"
-        rel="noopener"
-      >
-        Portfolio
-      </a>
-      <a
-        class="site-header__link"
-        href="rss.xml"
-        rel="alternate"
-        type="application/rss+xml"
-      >
-        RSS
-      </a>
-    </nav>
+    <div class="site-header__tools">
+      <nav class="site-header__nav" aria-label="Primary">
+        <a
+          class="site-header__link"
+          routerLink="/"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Blog
+        </a>
+        <a
+          class="site-header__link"
+          href="https://saleemkhan.dev/"
+          rel="noopener"
+        >
+          Portfolio
+        </a>
+        <a
+          class="site-header__link"
+          href="rss.xml"
+          rel="alternate"
+          type="application/rss+xml"
+        >
+          RSS
+        </a>
+      </nav>
+
+      <app-theme-toggle />
+    </div>
   </div>
 </header>

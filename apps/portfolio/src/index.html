@@ -20,6 +20,31 @@
     />
     <link rel="canonical" href="https://saleemkhan.dev/" />
     <meta name="theme-color" content="#0d0d0d" />
+    <script>
+      (function () {
+        var key = 'saleemkhan-theme';
+        var theme = 'dark';
+        try {
+          var stored = localStorage.getItem(key);
+          if (stored === 'light' || stored === 'dark') {
+            theme = stored;
+          } else if (
+            window.matchMedia('(prefers-color-scheme: light)').matches
+          ) {
+            theme = 'light';
+          }
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.setAttribute(
+            'content',
+            theme === 'light' ? '#f4f1ec' : '#0d0d0d',
+          );
+        }
+      })();
+    </script>
 
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content="Saleem Khan" />

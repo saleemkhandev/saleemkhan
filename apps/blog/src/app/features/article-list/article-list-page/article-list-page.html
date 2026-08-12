@@ -1,7 +1,11 @@
 <section class="article-list" aria-labelledby="blog-heading">
   <header class="article-list__intro">
-    <h1 id="blog-heading">Engineering Blog</h1>
-    <p>Notes on Angular, Nx, and frontend architecture.</p>
+    <p class="article-list__eyebrow">Engineering notes</p>
+    <h1 id="blog-heading">How I think</h1>
+    <p class="article-list__lede">
+      I write about frontend architecture, Angular, Nx, and the practices that
+      keep production systems understandable as they grow.
+    </p>
   </header>
 
   @if (publishedArticles.length === 0) {
@@ -17,19 +21,27 @@
           <a [routerLink]="['/', article.slug]">{{ article.title }}</a>
         </h2>
         <p class="article-list__description">{{ article.description }}</p>
-        <p class="article-list__meta">
-          <time [attr.datetime]="article.publishedAt">
+        <div class="article-list__meta">
+          <time
+            class="article-list__date"
+            [attr.datetime]="article.publishedAt"
+          >
             {{ formatDate(article.publishedAt) }}
           </time>
           @if (article.tags.length > 0) {
-          <span class="article-list__tags" aria-label="Tags">
-            @for (tag of article.tags; track tag; let last = $last) {
-            <span>{{ tag }}</span>@if (!last) {
-            <span aria-hidden="true"> · </span>
-            } }
-          </span>
+          <ul
+            class="article-list__tags"
+            [attr.aria-label]="'Tags for ' + article.title"
+          >
+            @for (tag of article.tags; track tag) {
+            <li>{{ tag }}</li>
+            }
+          </ul>
           }
-        </p>
+        </div>
+        <a class="article-list__read" [routerLink]="['/', article.slug]">
+          Read article <span aria-hidden="true">→</span>
+        </a>
       </article>
     </li>
     }

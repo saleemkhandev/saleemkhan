@@ -22,6 +22,12 @@
   text-decoration: none;
 }
 
+.site-header__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
 .site-header__nav {
   display: flex;
   align-items: center;

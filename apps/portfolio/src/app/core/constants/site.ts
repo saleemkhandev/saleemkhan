@@ -60,7 +60,6 @@ export const SITE = {
     height: 800,
   },
   rotatingRoles: [
-    'Senior Software Engineer',
     'Full-Stack Engineer',
     'Frontend Architect',
     'Software Architect',

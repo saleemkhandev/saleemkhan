@@ -76,7 +76,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node --test --experimental-strip-types --test-reporter=spec apps/portfolio/src/app/core/constants/site.spec.mts apps/portfolio/src/app/core/constants/featured-articles.spec.mts"
+        "command": "node --test --experimental-strip-types --test-reporter=spec apps/portfolio/src/app/core/constants/site.spec.mts apps/portfolio/src/app/core/constants/featured-articles.spec.mts apps/portfolio/src/app/core/theme/theme.spec.mts"
       }
     },
     "serve-static": {
