@@ -5,6 +5,14 @@
   "framework": null,
   "rewrites": [
     {
+      "source": "/blog",
+      "destination": "https://saleemkhan-blog.vercel.app/"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://saleemkhan-blog.vercel.app/:path*"
+    },
+    {
       "source": "/((?!.*\\.).*)",
       "destination": "/index.html"
     }
