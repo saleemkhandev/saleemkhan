@@ -46,13 +46,22 @@
       }
     </ul>
 
-    <a
-      class="profile__cta"
-      [href]="githubHref"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      View GitHub
-    </a>
+    <div class="profile__actions">
+      <a
+        class="profile__cta"
+        [href]="site.resume.href"
+        [download]="site.resume.fileName"
+      >
+        {{ site.resume.label }}
+      </a>
+      <a
+        class="profile__cta profile__cta--secondary"
+        [href]="githubHref"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View GitHub
+      </a>
+    </div>
   </div>
 </aside>

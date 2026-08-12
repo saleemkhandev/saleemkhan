@@ -8,5 +8,5 @@ import { SITE } from '../../../core/constants/site';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EngineeringFocus {
-  protected readonly focusAreas = SITE.focusAreas;
+  protected readonly skillGroups = SITE.skillGroups;
 }

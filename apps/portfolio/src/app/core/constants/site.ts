@@ -3,9 +3,16 @@ export interface NavItem {
   readonly href: string;
 }
 
-export interface FocusArea {
+export interface SkillGroup {
   readonly title: string;
-  readonly description: string;
+  readonly items: readonly string[];
+}
+
+export interface ExperienceRole {
+  readonly company: string;
+  readonly title: string;
+  readonly period: string;
+  readonly highlights: readonly string[];
 }
 
 export interface SocialLink {
@@ -17,67 +24,145 @@ export const SITE = {
   name: 'Saleem Khan',
   title: 'Senior Software Engineer',
   domain: 'https://saleemkhan.dev',
-  email: 'hello@saleemkhan.dev',
+  email: 'saleemkhan.dev@outlook.com',
+  location: 'Bengaluru, India',
   tagline:
     'Building scalable software, exploring architecture, and documenting the journey from Senior Engineer to Staff Engineer and beyond.',
   shortBio:
-    'Senior Software Engineer focused on Angular, TypeScript, and frontend architecture. Available for thoughtful engineering conversations.',
+    'Senior Software Engineer with over 10 years of experience across Angular, TypeScript, Node.js, and full-stack delivery.',
   biography:
-    'I am a Senior Software Engineer with roughly a decade of experience building software, with particular depth in frontend engineering. This site is my public engineering home — a place to share architecture thinking, technical experiments, and the journey toward Staff Engineer and architectural leadership.',
+    'Senior Full Stack Engineer with over 10 years of experience designing and building software across frontend and backend. Strongest depth is in Angular and TypeScript, with hands-on work across Node.js, cloud platforms, microservices, and product delivery. This site is my public engineering home for architecture thinking, technical experiments, and the journey toward Staff Engineer and architectural leadership.',
   description:
-    'Personal engineering portfolio and laboratory of Saleem Khan — Senior Software Engineer focused on Angular, TypeScript, frontend architecture, and systems thinking.',
+    'Personal engineering portfolio of Saleem Khan — Senior Software Engineer focused on Angular, TypeScript, full-stack engineering, and frontend architecture.',
+  resume: {
+    href: '/resume/saleem-khan-resume.pdf',
+    label: 'Download CV',
+    fileName: 'Saleem-Khan-Resume.pdf',
+  },
   portrait: {
     src: '/images/saleem-khan.png',
     alt: 'Portrait of Saleem Khan',
   },
   rotatingRoles: [
+    'Senior Software Engineer',
     'Angular Specialist',
-    'Frontend Architect',
     'Full-Stack Engineer',
+    'Frontend Architect',
   ] as const,
   navigation: [
     { label: 'Intro', href: '#intro' },
     { label: 'About', href: '#about' },
-    { label: 'Focus', href: '#focus' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Skills', href: '#skills' },
     { label: 'Journey', href: '#journey' },
   ] as const satisfies readonly NavItem[],
-  focusAreas: [
+  experience: [
     {
-      title: 'Angular',
-      description:
-        'Modern Angular architecture with standalone components, Signals, and maintainable application structure.',
+      company: 'Mimecast',
+      title: 'Senior Software Engineer',
+      period: 'Jul 2024 — Present',
+      highlights: [
+        'Contributing to a next-generation email security platform spanning multiple products, built with Angular micro frontends in an Nx monorepo.',
+        'Owned features from UI components and state management through API consumption, error handling, and contract alignment with backend teams.',
+        'Improved shared UI libraries and build tooling, contributing to platform quality and cross-team delivery.',
+      ],
     },
     {
-      title: 'TypeScript',
-      description:
-        'Strict typing, clear domain models, and APIs that make intent obvious to the next engineer.',
+      company: 'Epsilon',
+      title: 'Senior Software Engineer',
+      period: 'Sep 2021 — Jul 2024',
+      highlights: [
+        'Led the migration of existing applications to a new internal framework, ensuring a seamless transition and improved performance.',
+        'Integrated Changelog with Kafka and Elasticsearch, enhancing client module functionality and enabling real-time data processing.',
+        'Participated in architectural discussions and decisions, contributing insights and best practices.',
+      ],
     },
     {
-      title: 'Frontend Architecture',
-      description:
-        'Boundaries, composition, and design systems that scale across products and teams.',
+      company: 'Ceridian (Dayforce)',
+      title: 'Software Developer Sr',
+      period: 'Mar 2020 — Sep 2021',
+      highlights: [
+        'Designed and built a leave application using Angular.',
+        'Managed the end-to-end leave application cycle, from request submission to final approval.',
+        'Contributed to major design discussions that improved architecture, usability, and overall user experience.',
+      ],
     },
     {
-      title: 'Full-Stack Engineering',
-      description:
-        'End-to-end delivery across interfaces, services, and the operational concerns between them.',
+      company: 'Appveen (Datanimbus)',
+      title: 'Technical Engineer',
+      period: 'Feb 2018 — Mar 2020',
+      highlights: [
+        'Developed frontend components and business logic with Angular.',
+        'Implemented Angular routing and state management.',
+        'Conducted code reviews.',
+      ],
     },
     {
-      title: 'Cloud',
-      description:
-        'Cloud-aware application design with pragmatic deployment and reliability trade-offs.',
+      company: 'Vxceed Software Solutions',
+      title: 'UI Developer',
+      period: 'Feb 2016 — Feb 2018',
+      highlights: [
+        'Collaborated with senior developers to design and modify HTML, CSS, and JavaScript for web pages.',
+        'Implemented interactive features with JavaScript, including form validation and dynamic content.',
+      ],
+    },
+  ] satisfies readonly ExperienceRole[],
+  skillGroups: [
+    {
+      title: 'Frontend',
+      items: [
+        'Angular',
+        'TypeScript',
+        'JavaScript',
+        'HTML5',
+        'CSS3',
+        'SCSS',
+        'Material UI',
+        'Responsive Design',
+        'Accessibility',
+        'Performance',
+      ],
     },
     {
-      title: 'System Design',
-      description:
-        'Clear models, durable interfaces, and decisions that hold under real product pressure.',
+      title: 'Backend',
+      items: ['Node.js', 'Express.js', 'Python', 'Web Services'],
     },
     {
-      title: 'Developer Experience',
-      description:
-        'Tooling, conventions, and feedback loops that help engineers ship with confidence.',
+      title: 'Architecture',
+      items: [
+        'Microservices',
+        'Micro Frontend Architecture',
+        'Distributed Systems',
+        'Software Design',
+      ],
     },
-  ] as const satisfies readonly FocusArea[],
+    {
+      title: 'Data & Messaging',
+      items: ['MongoDB', 'PostgreSQL', 'Kafka', 'Data Modeling'],
+    },
+    {
+      title: 'Cloud & DevOps',
+      items: [
+        'Docker',
+        'CI/CD',
+        'Jenkins',
+        'GitLab',
+        'GCP',
+        'Azure',
+        'Cloud Security',
+      ],
+    },
+    {
+      title: 'Practices',
+      items: [
+        'Test Driven Development',
+        'Root Cause Analysis',
+        'Debugging',
+        'Code Review',
+        'UI Engineering Best Practices',
+      ],
+    },
+  ] as const satisfies readonly SkillGroup[],
   social: [
     {
       label: 'GitHub',

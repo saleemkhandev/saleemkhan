@@ -12,7 +12,8 @@ export class Biography {
   protected readonly facts = [
     { label: 'Name', value: SITE.name },
     { label: 'Title', value: SITE.title },
-    { label: 'Focus', value: 'Angular · TypeScript · Frontend Architecture' },
+    { label: 'Location', value: SITE.location },
+    { label: 'Focus', value: 'Angular · TypeScript · Full-Stack' },
     { label: 'Direction', value: 'Growing toward Staff Engineer' },
     { label: 'Email', value: SITE.email },
     { label: 'GitHub', value: 'saleemkhandev' },

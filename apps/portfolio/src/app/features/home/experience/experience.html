@@ -1,0 +1,34 @@
+<section
+  id="experience"
+  class="experience"
+  aria-labelledby="experience-heading"
+>
+  <div class="experience__intro">
+    <p class="experience__eyebrow">Experience</p>
+    <h2 id="experience-heading" class="experience__heading">
+      Where I have worked
+    </h2>
+    <p class="experience__lede">
+      A selection of roles across product engineering, from UI development to
+      senior full-stack delivery.
+    </p>
+  </div>
+
+  <ol class="experience__list">
+    @for (role of roles; track role.company + role.period; let index = $index) {
+    <li class="experience__item" [style.--delay]="index * 70 + 'ms'">
+      <div class="experience__meta">
+        <p class="experience__period">{{ role.period }}</p>
+        <h3 class="experience__title">{{ role.title }}</h3>
+        <p class="experience__company">{{ role.company }}</p>
+      </div>
+
+      <ul class="experience__highlights">
+        @for (highlight of role.highlights; track highlight) {
+        <li>{{ highlight }}</li>
+        }
+      </ul>
+    </li>
+    }
+  </ol>
+</section>
