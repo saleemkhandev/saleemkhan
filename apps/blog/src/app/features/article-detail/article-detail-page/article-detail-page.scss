@@ -1,10 +1,14 @@
 :host {
   display: block;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .article-detail {
   display: grid;
   gap: var(--space-7);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .article-detail__header {
@@ -41,9 +45,12 @@
 .article-detail__body {
   display: grid;
   gap: var(--space-4);
+  min-width: 0;
+  max-width: 100%;
   font-size: var(--text-md);
   line-height: var(--leading-normal);
   color: var(--color-ink-soft);
+  overflow-wrap: break-word;
 }
 
 /* Markdown often repeats the frontmatter title as the first H1. */
@@ -102,25 +109,44 @@
   padding: 0.1em 0.35em;
   border-radius: var(--radius-sm);
   background: rgb(255 255 255 / 6%);
+  overflow-wrap: anywhere;
 }
 
 .article-detail__body pre,
 .article-detail__body .shiki {
   margin: var(--space-3) 0 0;
+  min-width: 0;
+  max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
-  max-width: 100%;
 }
 
 .article-detail__body pre code,
 .article-detail__body .shiki code {
   font-family: var(--font-mono);
   display: block;
-  min-width: min-content;
+  width: max-content;
+  min-width: 100%;
+  box-sizing: border-box;
   padding: var(--space-4);
+}
+
+.article-detail__body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.article-detail__body :is(th, td) {
+  padding: 0.4rem 0.85rem 0.4rem 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .article-detail__footer {

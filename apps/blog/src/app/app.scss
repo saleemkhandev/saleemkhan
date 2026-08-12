@@ -1,6 +1,8 @@
 :host {
   display: block;
   min-height: 100vh;
+  min-width: 0;
+  overflow-x: clip;
 }
 
 .skip-link {
@@ -25,11 +27,15 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 0;
+  width: 100%;
 }
 
 .app-shell__main {
   flex: 1;
+  min-width: 0;
   width: min(100% - 2rem, var(--content-max));
+  max-width: 100%;
   margin-inline: auto;
   padding-block: var(--space-7);
 }
