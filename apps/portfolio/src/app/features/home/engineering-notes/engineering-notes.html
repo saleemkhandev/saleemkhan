@@ -1,0 +1,51 @@
+<section
+  id="engineering-notes"
+  class="notes"
+  aria-labelledby="engineering-notes-heading"
+>
+  <div class="notes__intro">
+    <p class="notes__eyebrow">Engineering notes</p>
+    <h2 id="engineering-notes-heading" class="notes__heading">How I think</h2>
+    <p class="notes__lede">
+      I write about frontend architecture, Angular, Nx, and the practices that
+      keep production systems understandable as they grow.
+    </p>
+  </div>
+
+  <ul class="notes__list">
+    @for (article of articles; track article.slug; let index = $index) {
+    <li [style.--delay]="index * 70 + 'ms'">
+      <article class="notes__article">
+        <h3 class="notes__title">
+          <a [href]="articlePath(article.slug)">{{ article.title }}</a>
+        </h3>
+        <p class="notes__description">{{ article.description }}</p>
+        <div class="notes__meta">
+          <time class="notes__date" [attr.datetime]="article.publishedAt">
+            {{ formatDate(article.publishedAt) }}
+          </time>
+          @if (article.tags.length > 0) {
+          <ul
+            class="notes__tags"
+            [attr.aria-label]="'Tags for ' + article.title"
+          >
+            @for (tag of article.tags; track tag) {
+            <li>{{ tag }}</li>
+            }
+          </ul>
+          }
+        </div>
+        <a class="notes__read" [href]="articlePath(article.slug)">
+          Read article <span aria-hidden="true">→</span>
+        </a>
+      </article>
+    </li>
+    }
+  </ul>
+
+  <p class="notes__more">
+    <a class="notes__all" [href]="blogIndexPath">
+      View all articles <span aria-hidden="true">→</span>
+    </a>
+  </p>
+</section>

@@ -3,6 +3,15 @@ import { describe, it } from 'node:test';
 
 import { buildJsonLd, SITE } from './site.ts';
 
+describe('SITE.navigation', () => {
+  it('includes a Blog item that points at the public Blog mount', () => {
+    const blog = SITE.navigation.find((item) => item.label === 'Blog');
+
+    assert.ok(blog);
+    assert.equal(blog.href, '/blog');
+  });
+});
+
 describe('buildJsonLd', () => {
   it('builds schema.org graph with website and person nodes', () => {
     const jsonLd = buildJsonLd();
