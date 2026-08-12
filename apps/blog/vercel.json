@@ -1,7 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm exec nx build blog --configuration=production",
-  "outputDirectory": "dist/apps/blog/browser",
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "buildCommand": "cd ../.. && pnpm exec nx build blog --configuration=production",
+  "outputDirectory": "../../dist/apps/blog/browser",
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
