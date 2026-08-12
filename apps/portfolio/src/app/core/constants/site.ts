@@ -29,11 +29,21 @@ export const SITE = {
   tagline:
     'Building scalable software, exploring architecture, and documenting the journey from Senior Engineer to Staff Engineer and beyond.',
   shortBio:
-    'Senior Software Engineer with over 10 years of experience across Angular, TypeScript, Node.js, and full-stack delivery.',
+    'Senior Software Engineer with over 10 years of experience designing and delivering scalable products across the stack.',
   biography:
-    'Senior Full Stack Engineer with over 10 years of experience designing and building software across frontend and backend. Strongest depth is in Angular and TypeScript, with hands-on work across Node.js, cloud platforms, microservices, and product delivery. This site is my public engineering home for architecture thinking, technical experiments, and the journey toward Staff Engineer and architectural leadership.',
+    'Senior Software Engineer with over 10 years of experience designing and building software across frontend, backend, and cloud. I work end to end — from product interfaces and APIs to microservices, data platforms, and the systems that keep them reliable in production. This site is my public engineering home for architecture thinking, technical experiments, and the journey toward Staff Engineer and architectural leadership.',
   description:
-    'Personal engineering portfolio of Saleem Khan — Senior Software Engineer focused on Angular, TypeScript, full-stack engineering, and frontend architecture.',
+    'Saleem Khan is a Senior Software Engineer in Bengaluru with 10+ years building scalable full-stack products, APIs, and cloud systems. Portfolio, experience, and CV at saleemkhan.dev.',
+  pageTitle: 'Saleem Khan | Senior Software Engineer | Bengaluru',
+  keywords: [
+    'Saleem Khan',
+    'Saleem Ulla Khan',
+    'Senior Software Engineer',
+    'Full Stack Engineer',
+    'Bengaluru',
+    'saleemkhan.dev',
+    'software engineer portfolio',
+  ] as const,
   resume: {
     href: '/resume/saleem-khan-resume.pdf',
     label: 'Download CV',
@@ -43,11 +53,17 @@ export const SITE = {
     src: '/images/saleem-khan.png',
     alt: 'Portrait of Saleem Khan',
   },
+  ogImage: {
+    src: '/images/og-image.jpg',
+    alt: 'Saleem Khan — Senior Software Engineer',
+    width: 1200,
+    height: 800,
+  },
   rotatingRoles: [
     'Senior Software Engineer',
-    'Angular Specialist',
     'Full-Stack Engineer',
     'Frontend Architect',
+    'Software Architect',
   ] as const,
   navigation: [
     { label: 'Intro', href: '#intro' },
@@ -174,3 +190,58 @@ export const SITE = {
     },
   ] as const satisfies readonly SocialLink[],
 } as const;
+
+export function buildJsonLd(): Record<string, unknown> {
+  const imageUrl = `${SITE.domain}${SITE.ogImage.src}`;
+  const portraitUrl = `${SITE.domain}${SITE.portrait.src}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE.domain}/#website`,
+        url: `${SITE.domain}/`,
+        name: SITE.name,
+        description: SITE.description,
+        inLanguage: 'en',
+        publisher: { '@id': `${SITE.domain}/#person` },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${SITE.domain}/#person`,
+        name: SITE.name,
+        url: `${SITE.domain}/`,
+        image: portraitUrl,
+        email: SITE.email,
+        jobTitle: SITE.title,
+        description: SITE.shortBio,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Bengaluru',
+          addressCountry: 'IN',
+        },
+        sameAs: SITE.social.map((link) => link.href),
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Mimecast',
+        },
+      },
+      {
+        '@type': 'ProfilePage',
+        '@id': `${SITE.domain}/#profilepage`,
+        url: `${SITE.domain}/`,
+        name: SITE.pageTitle,
+        description: SITE.description,
+        isPartOf: { '@id': `${SITE.domain}/#website` },
+        about: { '@id': `${SITE.domain}/#person` },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: imageUrl,
+          width: SITE.ogImage.width,
+          height: SITE.ogImage.height,
+        },
+      },
+    ],
+  };
+}

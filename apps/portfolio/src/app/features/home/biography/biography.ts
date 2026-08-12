@@ -9,13 +9,4 @@ import { SITE } from '../../../core/constants/site';
 })
 export class Biography {
   protected readonly site = SITE;
-  protected readonly facts = [
-    { label: 'Name', value: SITE.name },
-    { label: 'Title', value: SITE.title },
-    { label: 'Location', value: SITE.location },
-    { label: 'Focus', value: 'Angular · TypeScript · Full-Stack' },
-    { label: 'Direction', value: 'Growing toward Staff Engineer' },
-    { label: 'Email', value: SITE.email },
-    { label: 'GitHub', value: 'saleemkhandev' },
-  ] as const;
 }

@@ -4,6 +4,7 @@
   justify-content: center;
   min-height: min(72vh, 38rem);
   padding: var(--space-8) 0 var(--space-7);
+  scroll-margin-top: var(--space-5);
   animation: rise-in var(--duration-med) var(--ease-out) both;
 }
 

@@ -2,13 +2,4 @@
   <p class="biography__eyebrow">Biography</p>
   <h2 id="biography-heading" class="biography__heading">About me</h2>
   <p class="biography__copy">{{ site.biography }}</p>
-
-  <dl class="biography__facts">
-    @for (fact of facts; track fact.label) {
-    <div class="biography__fact">
-      <dt>{{ fact.label }}</dt>
-      <dd>{{ fact.value }}</dd>
-    </div>
-    }
-  </dl>
 </section>
