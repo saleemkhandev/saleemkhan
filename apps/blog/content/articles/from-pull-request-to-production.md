@@ -114,13 +114,13 @@ nx affected -t build --configuration=production
 
 Node comes from `.nvmrc` (22). pnpm comes from the repo `packageManager` field. `pnpm install --frozen-lockfile` means a lockfile drift fails CI instead of silently rewriting it.
 
-| Check        | Command                                              | Scope                         |
-| ------------ | ---------------------------------------------------- | ----------------------------- |
-| Format       | `pnpm format:check`                                  | Whole workspace (Prettier)    |
-| Lint         | `nx affected -t lint`                                | Affected projects             |
-| Typecheck    | `nx affected -t typecheck`                           | Affected projects             |
-| Test         | `nx affected -t test`                                | Affected projects             |
-| Build        | `nx affected -t build --configuration=production`    | Affected projects             |
+| Check     | Command                                           | Scope                      |
+| --------- | ------------------------------------------------- | -------------------------- |
+| Format    | `pnpm format:check`                               | Whole workspace (Prettier) |
+| Lint      | `nx affected -t lint`                             | Affected projects          |
+| Typecheck | `nx affected -t typecheck`                        | Affected projects          |
+| Test      | `nx affected -t test`                             | Affected projects          |
+| Build     | `nx affected -t build --configuration=production` | Affected projects          |
 
 Format is the exception: it is not `nx affected`. Prettier checks the workspace. CI never auto-writes. If formatting is wrong, the gate fails and the fix is a local `pnpm format`.
 
@@ -248,15 +248,15 @@ Nx affected is justified by the second app, not by a future fifty-app diagram. C
 
 Honesty is part of the case study.
 
-| Missing                         | Why it waits                                              |
-| ------------------------------- | --------------------------------------------------------- |
-| Husky / lint-staged             | CI is enough backstop for a one-person repo               |
-| Nx Cloud / remote cache         | Local cache + cold CI is fine at this size                |
-| Angular component / e2e tests   | No UI contract yet that justifies the harness             |
-| Deploy from GitHub Actions      | Vercel already owns preview and production                |
-| Cross-app preview at `/blog`    | Root rewrites still target Blog production                |
-| Required PR approvals           | Optional on a personal repository                         |
-| Branch protection in Git        | GitHub rulesets are settings, not files                   |
+| Missing                       | Why it waits                                  |
+| ----------------------------- | --------------------------------------------- |
+| Husky / lint-staged           | CI is enough backstop for a one-person repo   |
+| Nx Cloud / remote cache       | Local cache + cold CI is fine at this size    |
+| Angular component / e2e tests | No UI contract yet that justifies the harness |
+| Deploy from GitHub Actions    | Vercel already owns preview and production    |
+| Cross-app preview at `/blog`  | Root rewrites still target Blog production    |
+| Required PR approvals         | Optional on a personal repository             |
+| Branch protection in Git      | GitHub rulesets are settings, not files       |
 
 The Quality Gate is one job, sequential, thirty minutes timeout, no matrix. That is appropriate for two static Angular apps. It is not a platform CI product.
 
