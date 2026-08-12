@@ -1,0 +1,113 @@
+{
+  "name": "blog",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/blog/src",
+  "tags": [],
+  "targets": {
+    "prepare-content": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/src/app/generated"],
+      "options": {
+        "command": "node apps/blog/scripts/prepare-content.mjs"
+      }
+    },
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "dependsOn": ["prepare-content", "^build"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/blog",
+        "browser": "apps/blog/src/main.ts",
+        "tsConfig": "apps/blog/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/blog/public"
+          },
+          {
+            "glob": "sitemap.xml",
+            "input": "apps/blog/src/app/generated/seo",
+            "output": "/"
+          },
+          {
+            "glob": "rss.xml",
+            "input": "apps/blog/src/app/generated/seo",
+            "output": "/"
+          }
+        ],
+        "styles": ["apps/blog/src/styles.scss"],
+        "server": "apps/blog/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/blog/src/server.ts"
+        },
+        "outputMode": "static"
+      },
+      "configurations": {
+        "production": {
+          "baseHref": "/blog/",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "dependsOn": ["prepare-content"],
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": {
+          "buildTarget": "blog:build:production"
+        },
+        "development": {
+          "buildTarget": "blog:build:development"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["prepare-content"],
+      "options": {
+        "command": "tsc -p apps/blog/tsconfig.app.json --noEmit"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --test --experimental-strip-types --test-reporter=spec apps/blog/scripts/lib/content-validation.spec.mjs apps/blog/src/app/core/content/article-queries.spec.mts apps/blog/src/app/core/content/format-article-date.spec.mts"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "blog:build",
+        "staticFilePath": "dist/apps/blog/browser",
+        "spa": false
+      }
+    }
+  }
+}

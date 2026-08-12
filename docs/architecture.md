@@ -25,7 +25,7 @@ The long-term shape of this platform includes multiple Angular applications and 
 
 A monorepo keeps shared conventions, tooling, and libraries in one place while preserving clear application boundaries.
 
-The monorepo is incremental by design. Only `apps/portfolio` exists in the first milestone.
+The monorepo is incremental by design. Current applications: `apps/portfolio` and `apps/blog`.
 
 ## Why Nx?
 
@@ -36,7 +36,7 @@ Reasons:
 - The repository is expected to grow into multiple Angular apps and shared libraries.
 - Affected builds, project graph visibility, and caching become valuable as soon as a second app or shared library appears.
 - `@nx/angular` provides a first-class Angular developer experience.
-- The workspace remains understandable with a single application today.
+- The workspace remains understandable with a small number of thin applications.
 
 Nx was **not** chosen because “monorepo automatically means Nx.” A plain Angular CLI workspace would have been enough for a single static site. Nx is justified here by the planned multi-app engineering lab.
 

@@ -67,6 +67,18 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/portfolio/tsconfig.app.json --noEmit"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --test --experimental-strip-types --test-reporter=spec apps/portfolio/src/app/core/constants/site.spec.mts"
+      }
+    },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",

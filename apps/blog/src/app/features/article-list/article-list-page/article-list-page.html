@@ -1,0 +1,38 @@
+<section class="article-list" aria-labelledby="blog-heading">
+  <header class="article-list__intro">
+    <h1 id="blog-heading">Engineering Blog</h1>
+    <p>Notes on Angular, Nx, and frontend architecture.</p>
+  </header>
+
+  @if (publishedArticles.length === 0) {
+  <p class="article-list__empty" role="status">
+    No published articles yet. Check back soon.
+  </p>
+  } @else {
+  <ul class="article-list__items">
+    @for (article of publishedArticles; track article.slug) {
+    <li>
+      <article class="article-list__item">
+        <h2 class="article-list__title">
+          <a [routerLink]="['/', article.slug]">{{ article.title }}</a>
+        </h2>
+        <p class="article-list__description">{{ article.description }}</p>
+        <p class="article-list__meta">
+          <time [attr.datetime]="article.publishedAt">
+            {{ formatDate(article.publishedAt) }}
+          </time>
+          @if (article.tags.length > 0) {
+          <span class="article-list__tags" aria-label="Tags">
+            @for (tag of article.tags; track tag; let last = $last) {
+            <span>{{ tag }}</span>@if (!last) {
+            <span aria-hidden="true"> · </span>
+            } }
+          </span>
+          }
+        </p>
+      </article>
+    </li>
+    }
+  </ul>
+  }
+</section>
