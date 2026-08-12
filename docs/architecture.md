@@ -44,7 +44,7 @@ Nx was **not** chosen because “monorepo automatically means Nx.” A plain Ang
 
 ```text
 apps/portfolio/src/app/
-├── core/constants/     # site content and typed config
+├── core/constants/     # site content, typed config, featured article metadata
 ├── layout/
 │   ├── profile-panel/  # fixed left identity panel
 │   └── site-footer/
@@ -52,16 +52,26 @@ apps/portfolio/src/app/
     ├── home-page/      # shell composition + SEO metadata
     ├── intro/          # rotating role intro
     ├── biography/
+    ├── experience/
     ├── engineering-focus/
-    └── journey/
+    ├── journey/
+    └── engineering-notes/  # latest Blog articles via public URLs
 ```
 
 The public landing page currently uses a Deebo-inspired split layout:
 
 - fixed left profile panel with portrait and identity
-- scrolling main column for intro, biography, focus, and journey
+- scrolling main column for intro, biography, experience, focus, journey, and engineering notes
 
 This is an intentional product choice for the current milestone. Shared libraries are still deferred until real reuse appears.
+
+## Portfolio → Blog presentation
+
+Portfolio links to Blog through public URLs only (`/blog`, `/blog/<slug>`). It does not import `apps/blog`.
+
+Latest-article cards on the homepage use Portfolio-local featured metadata in `apps/portfolio/src/app/core/constants/featured-articles.ts`. That list is intentionally duplicated presentation data. Markdown under `apps/blog/content/articles/` remains Blog's source of truth (ADR-0003).
+
+A public content API can replace the duplicated metadata later. Do not introduce a shared content library until a second consumer actually needs the same implementation.
 
 ## Why standalone Angular components?
 

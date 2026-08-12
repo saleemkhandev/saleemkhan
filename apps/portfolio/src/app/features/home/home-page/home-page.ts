@@ -12,6 +12,7 @@ import { ProfilePanel } from '../../../layout/profile-panel/profile-panel';
 import { SiteFooter } from '../../../layout/site-footer/site-footer';
 import { Biography } from '../biography/biography';
 import { EngineeringFocus } from '../engineering-focus/engineering-focus';
+import { EngineeringNotes } from '../engineering-notes/engineering-notes';
 import { Experience } from '../experience/experience';
 import { Intro } from '../intro/intro';
 import { Journey } from '../journey/journey';
@@ -24,6 +25,7 @@ import { Journey } from '../journey/journey';
     Biography,
     Experience,
     EngineeringFocus,
+    EngineeringNotes,
     Journey,
     SiteFooter,
   ],

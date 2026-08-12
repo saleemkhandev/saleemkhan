@@ -71,6 +71,7 @@ export const SITE = {
     { label: 'Experience', href: '#experience' },
     { label: 'Skills', href: '#skills' },
     { label: 'Journey', href: '#journey' },
+    { label: 'Blog', href: '/blog' },
   ] as const satisfies readonly NavItem[],
   experience: [
     {
