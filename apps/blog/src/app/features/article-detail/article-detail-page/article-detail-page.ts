@@ -5,6 +5,7 @@ import {
   effect,
   inject,
   input,
+  ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
@@ -29,6 +30,9 @@ import { BlogSeo } from '../../../core/seo/blog-seo';
   templateUrl: './article-detail-page.html',
   styleUrl: './article-detail-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // Markdown is injected via innerHTML, so emulated encapsulation never
+  // matches `pre` / `table` / headings inside the article body.
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleDetailPage {
   private readonly articles = inject(ArticleRepository);
