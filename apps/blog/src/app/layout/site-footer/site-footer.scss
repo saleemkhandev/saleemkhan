@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  border-top: 1px solid var(--color-border);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: min(100% - 2rem, var(--content-max));
+  margin-inline: auto;
+  padding-block: var(--space-5);
+}
+
+.site-footer__copy {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.site-footer__link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-ink-soft);
+}
+
+.site-footer__link:hover {
+  color: var(--color-accent);
+}

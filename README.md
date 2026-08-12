@@ -13,8 +13,6 @@ This repository is the long-term home for:
 - technical experiments
 - future playgrounds and labs
 
-
-
 ## Architecture
 
 - **Monorepo:** Nx + pnpm
@@ -70,48 +68,27 @@ Future applications and libraries will be added only when there is a concrete ne
 pnpm install
 ```
 
-### Start the portfolio app
+### Start apps
 
 ```bash
-pnpm start
+pnpm start          # portfolio
+pnpm start:blog     # blog
 ```
 
-or:
+### Workspace quality checks
 
 ```bash
-pnpm exec nx serve portfolio
-```
-
-### Production build
-
-```bash
+pnpm format:check
+pnpm lint
+pnpm typecheck
+pnpm test
 pnpm build
 ```
 
-### Lint
+These root scripts validate the whole workspace (Portfolio + Blog).
+App-specific builds: `pnpm build:portfolio`, `pnpm build:blog`.
 
-```bash
-pnpm lint
-```
+### Development workflow
 
-### Typecheck
-
-```bash
-pnpm typecheck
-```
-
-### Format
-
-```bash
-pnpm format
-```
-
-
-
-Later, only when justified:
-
-- blog
-- architecture case studies
-- playgrounds
-- shared UI / design-system libraries
-- richer CI, analytics, and observability
+See [docs/architecture/development-workflow.md](docs/architecture/development-workflow.md)
+for the branch → PR → GitHub Actions → merge → Vercel flow.

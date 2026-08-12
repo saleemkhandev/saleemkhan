@@ -45,3 +45,7 @@ Thumbs.db
 .claude/settings.local.json
 
 .angular
+
+# Blog build-time generated article data (source of truth: apps/blog/content/articles)
+apps/blog/src/app/generated/
+.pnpm-store

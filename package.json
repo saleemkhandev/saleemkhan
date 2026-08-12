@@ -5,11 +5,19 @@
   "private": true,
   "scripts": {
     "start": "nx serve portfolio",
-    "build": "nx build portfolio --configuration=production",
-    "lint": "nx lint portfolio",
-    "typecheck": "tsc -p apps/portfolio/tsconfig.app.json --noEmit",
+    "start:blog": "nx serve blog",
+    "build": "nx run-many -t build --configuration=production",
+    "build:portfolio": "nx build portfolio --configuration=production",
+    "build:blog": "nx build blog --configuration=production",
+    "lint": "nx run-many -t lint",
+    "typecheck": "nx run-many -t typecheck",
+    "test": "nx run-many -t test",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "affected:lint": "nx affected -t lint",
+    "affected:typecheck": "nx affected -t typecheck",
+    "affected:test": "nx affected -t test",
+    "affected:build": "nx affected -t build --configuration=production"
   },
   "engines": {
     "node": ">=22"
@@ -48,8 +56,11 @@
     "angular-eslint": "^22.0.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.9",
     "nx": "23.1.1",
     "prettier": "~3.6.2",
+    "shiki": "^4.4.3",
     "tslib": "^2.3.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.58.0"

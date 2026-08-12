@@ -1,0 +1,139 @@
+:host {
+  display: block;
+}
+
+.article-detail {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.article-detail__header {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.article-detail__header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  word-break: break-word;
+}
+
+.article-detail__description {
+  font-size: var(--text-md);
+  color: var(--color-ink-soft);
+  max-width: var(--content-narrow);
+}
+
+.article-detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.article-detail__body {
+  display: grid;
+  gap: var(--space-4);
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-soft);
+}
+
+/* Markdown often repeats the frontmatter title as the first H1. */
+.article-detail__body > h1:first-child {
+  display: none;
+}
+
+.article-detail__body :is(h2, h3) {
+  margin: var(--space-5) 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+}
+
+.article-detail__body h2 {
+  font-size: var(--text-lg);
+}
+
+.article-detail__body h3 {
+  font-size: var(--text-md);
+}
+
+.article-detail__body p,
+.article-detail__body ul,
+.article-detail__body ol,
+.article-detail__body blockquote {
+  margin: 0;
+}
+
+.article-detail__body ul,
+.article-detail__body ol {
+  padding-left: 1.25rem;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.article-detail__body a {
+  color: var(--color-accent);
+}
+
+.article-detail__body a:hover {
+  color: var(--color-ink);
+}
+
+.article-detail__body blockquote {
+  border-left: 3px solid var(--color-border);
+  padding-left: var(--space-4);
+  color: var(--color-ink-muted);
+}
+
+.article-detail__body :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+  background: rgb(255 255 255 / 6%);
+}
+
+.article-detail__body pre,
+.article-detail__body .shiki {
+  margin: var(--space-3) 0 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  max-width: 100%;
+}
+
+.article-detail__body pre code,
+.article-detail__body .shiki code {
+  font-family: var(--font-mono);
+  display: block;
+  min-width: min-content;
+  padding: var(--space-4);
+}
+
+.article-detail__footer {
+  margin: 0;
+}
+
+.article-detail__back {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-ink-muted);
+}
+
+.article-detail__back:hover {
+  color: var(--color-accent);
+}

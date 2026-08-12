@@ -3,3 +3,4 @@ Allow: /
 
 Host: https://saleemkhan.dev
 Sitemap: https://saleemkhan.dev/sitemap.xml
+Sitemap: https://saleemkhan.dev/blog/sitemap.xml

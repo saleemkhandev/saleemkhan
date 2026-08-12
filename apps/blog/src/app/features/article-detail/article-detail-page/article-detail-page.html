@@ -1,0 +1,27 @@
+@if (article(); as article) {
+<article class="article-detail" aria-labelledby="article-heading">
+  <header class="article-detail__header">
+    <h1 id="article-heading">{{ article.title }}</h1>
+    <p class="article-detail__description">{{ article.description }}</p>
+    <p class="article-detail__meta">
+      <time [attr.datetime]="article.publishedAt">
+        {{ formatDate(article.publishedAt) }}
+      </time>
+      @if (article.tags.length > 0) {
+      <span class="article-detail__tags" aria-label="Tags">
+        @for (tag of article.tags; track tag; let last = $last) {
+        <span>{{ tag }}</span>@if (!last) {
+        <span aria-hidden="true"> · </span>
+        } }
+      </span>
+      }
+    </p>
+  </header>
+
+  <div class="article-detail__body" [innerHTML]="contentHtml()"></div>
+
+  <p class="article-detail__footer">
+    <a class="article-detail__back" routerLink="/">← Back to articles</a>
+  </p>
+</article>
+}
