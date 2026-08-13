@@ -29,7 +29,13 @@
       <ul class="profile__nav-list">
         @for (item of site.navigation; track item.label) {
         <li>
-          <a class="profile__nav-link" [href]="item.href"> {{ item.label }} </a>
+          <a
+            class="profile__nav-link"
+            [href]="item.href"
+            (click)="onNavClick($event, item.href)"
+          >
+            {{ item.label }}
+          </a>
         </li>
         }
       </ul>
@@ -60,7 +66,11 @@
       </a>
     </div>
 
-    <a class="profile__scroll" href="#intro">
+    <a
+      class="profile__scroll"
+      href="#intro"
+      (click)="onNavClick($event, '#intro')"
+    >
       <span>Scroll for more</span>
       <span class="profile__scroll-icon" aria-hidden="true"></span>
     </a>
