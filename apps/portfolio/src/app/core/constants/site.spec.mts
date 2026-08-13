@@ -10,6 +10,13 @@ describe('SITE.navigation', () => {
     assert.ok(blog);
     assert.equal(blog.href, '/blog');
   });
+
+  it('includes a Contact item that points at the homepage contact section', () => {
+    const contact = SITE.navigation.find((item) => item.label === 'Contact');
+
+    assert.ok(contact);
+    assert.equal(contact.href, '#contact');
+  });
 });
 
 describe('buildJsonLd', () => {

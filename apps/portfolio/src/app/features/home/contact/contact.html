@@ -1,0 +1,31 @@
+<section id="contact" class="contact" aria-labelledby="contact-heading">
+  <div class="contact__intro">
+    <p class="contact__eyebrow">Contact</p>
+    <h2 id="contact-heading" class="contact__heading">Get in touch</h2>
+    <p class="contact__lede">
+      If you want to talk about architecture, engineering, or a role that might
+      be a fit, email is the most direct way.
+    </p>
+  </div>
+
+  <div class="contact__box">
+    <a class="contact__row" [href]="mailto">
+      <span class="contact__label">Email</span>
+      <span class="contact__value">{{ site.email }}</span>
+    </a>
+
+    @if (linkedIn) {
+    <a
+      class="contact__row"
+      [href]="linkedIn.href"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="contact__label">{{ linkedIn.label }}</span>
+      <span class="contact__value">Connect on LinkedIn</span>
+    </a>
+    }
+
+    <p class="contact__meta">{{ site.location }}</p>
+  </div>
+</section>

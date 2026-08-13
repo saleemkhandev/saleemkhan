@@ -1,4 +1,5 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
@@ -11,11 +12,11 @@ import { buildJsonLd, SITE } from '../../../core/constants/site';
 import { ProfilePanel } from '../../../layout/profile-panel/profile-panel';
 import { SiteFooter } from '../../../layout/site-footer/site-footer';
 import { Biography } from '../biography/biography';
+import { Contact } from '../contact/contact';
 import { EngineeringFocus } from '../engineering-focus/engineering-focus';
 import { EngineeringNotes } from '../engineering-notes/engineering-notes';
 import { Experience } from '../experience/experience';
 import { Intro } from '../intro/intro';
-import { Journey } from '../journey/journey';
 
 @Component({
   selector: 'app-home-page',
@@ -26,7 +27,7 @@ import { Journey } from '../journey/journey';
     Experience,
     EngineeringFocus,
     EngineeringNotes,
-    Journey,
+    Contact,
     SiteFooter,
   ],
   templateUrl: './home-page.html',
@@ -38,6 +39,17 @@ export class HomePage implements OnInit {
   private readonly meta = inject(Meta);
   private readonly document = inject(DOCUMENT);
   private readonly renderer = inject(Renderer2);
+
+  constructor() {
+    afterNextRender(() => {
+      const hash = this.document.location.hash.slice(1);
+      if (!hash) {
+        return;
+      }
+
+      this.document.getElementById(hash)?.scrollIntoView({ block: 'start' });
+    });
+  }
 
   ngOnInit(): void {
     const pageTitle = SITE.pageTitle;
