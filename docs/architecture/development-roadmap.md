@@ -46,38 +46,45 @@ Focus:
 - GitHub Actions as the quality gate; Vercel as frontend deploy
 - Nx affected builds
 
-## Phase 4 — Developer Platform API (current: architecture accepted, not implemented)
-
-```text
-apps/api/    # planned; not in the repository yet
-```
+## Phase 4 — Developer Platform API
 
 Accepted decisions: ADR-0004, ADR-0005, ADR-0006, ADR-0007.
 
-Planned shape:
+### 4a — Foundation (delivered)
+
+```text
+apps/api/
+```
 
 - Modular monolith at `apps/api`
 - NestJS 11 + Fastify adapter
-- Zod validation
-- Drizzle + PostgreSQL
-- OpenAPI
-- Nx targets participating in the existing affected CI
-- Railway + managed PostgreSQL
-- `https://api.saleemkhan.dev`
+- Zod environment validation
+- OpenAPI (`/docs`)
+- Nx targets participating in the existing affected CI (`lint`, `typecheck`, `test`, `build`)
 
-Planned V1 surface (not implemented):
+Implemented surface:
 
 ```text
 GET /v1/health
 GET /v1/ready
+GET /docs
+```
+
+### 4b — Persistence and remaining V1 domains (not started)
+
+- Drizzle + PostgreSQL
+- Railway + managed PostgreSQL
+- `https://api.saleemkhan.dev`
+
+Still not implemented:
+
+```text
 GET /v1/platform
 GET /v1/projects
 GET /v1/projects/:slug
 ```
 
 V1 target: public, read-only, no auth, no Admin, no article persistence, no MCP, no write APIs.
-
-This phase is documentation-first. Implementation is a later PR.
 
 ## Phase 5 — Projects application
 

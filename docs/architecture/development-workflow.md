@@ -52,7 +52,7 @@ review (when collaborators/reviewers are practical)
 merge to main
       ↓
 frontend: Vercel production
-API (future): Railway, once apps/api exists
+API (future): Railway, after persistence is added
 ```
 
 ## Local validation
@@ -73,12 +73,16 @@ App-specific commands:
 ```bash
 pnpm start                 # portfolio
 pnpm start:blog            # blog
+pnpm start:api             # API at http://localhost:3000
 pnpm build:portfolio
 pnpm build:blog
+pnpm build:api
 pnpm exec nx lint portfolio
 pnpm exec nx lint blog
+pnpm exec nx lint api
 pnpm exec nx test portfolio
 pnpm exec nx test blog
+pnpm exec nx test api
 ```
 
 Affected-only helpers (match CI more closely):
@@ -122,10 +126,10 @@ invalidate the affected set appropriately.
 Blog production builds still run `prepare-content` through the existing
 `blog:build` → `prepare-content` dependency. CI does not bypass that pipeline.
 
-When `apps/api` is added, it should expose the same target names used by CI
-(`lint`, `typecheck`, `test`, `build`) so the existing affected workflow
-includes it automatically. Do not create a separate API CI system. This
-workflow file is not changed in the architecture-documentation milestone.
+`apps/api` exposes the same target names used by CI (`lint`, `typecheck`,
+`test`, `build`) so the existing affected workflow includes it automatically.
+Do not create a separate API CI system. `.github/workflows/ci.yml` was not
+changed for the API foundation.
 
 ## Test infrastructure
 
@@ -178,7 +182,7 @@ GitHub
          ↓
      Vercel Production (Portfolio, Blog)
          ↓
-     Railway (planned, after apps/api exists)
+     Railway (planned, after persistence)
 ```
 
 Responsibilities:
@@ -196,19 +200,19 @@ Portfolio remains the default project for `saleemkhan.dev`.
 
 Root scripts validate the **workspace**, not only Portfolio:
 
-| Script                                     | Meaning                                        |
-| ------------------------------------------ | ---------------------------------------------- |
-| `pnpm lint`                                | lint all projects                              |
-| `pnpm typecheck`                           | typecheck all projects with a typecheck target |
-| `pnpm test`                                | test all projects with a test target           |
-| `pnpm build`                               | production-build all projects                  |
-| `pnpm build:portfolio` / `pnpm build:blog` | explicit single-app builds                     |
-| `pnpm affected:*`                          | affected-only variants used by CI              |
+| Script                                                        | Meaning                                        |
+| ------------------------------------------------------------- | ---------------------------------------------- |
+| `pnpm lint`                                                   | lint all projects                              |
+| `pnpm typecheck`                                              | typecheck all projects with a typecheck target |
+| `pnpm test`                                                   | test all projects with a test target           |
+| `pnpm build`                                                  | production-build all projects                  |
+| `pnpm build:portfolio` / `pnpm build:blog` / `pnpm build:api` | explicit single-app builds                     |
+| `pnpm affected:*`                                             | affected-only variants used by CI              |
 
 ## Out of scope (for now)
 
 - Husky / lint-staged / local git hooks
 - Nx Cloud / remote caching
-- `apps/api` implementation (NestJS, Fastify, Drizzle, Docker, Railway)
+- PostgreSQL, Drizzle, Docker, Railway for `apps/api`
 - MCP server
 - Production API hostname (`api.saleemkhan.dev`)

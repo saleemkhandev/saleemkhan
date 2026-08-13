@@ -49,3 +49,8 @@ Thumbs.db
 # Blog build-time generated article data (source of truth: apps/blog/content/articles)
 apps/blog/src/app/generated/
 .pnpm-store
+
+# Local environment files (never commit secrets)
+.env
+.env.*
+!.env.example

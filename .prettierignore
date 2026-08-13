@@ -5,3 +5,4 @@
 /.nx/workspace-data
 .angular
 apps/blog/src/app/generated
+pnpm-lock.yaml

@@ -60,7 +60,7 @@ One Git repository can contain:
 saleem-platform/
 ├── apps/portfolio
 ├── apps/blog
-├── apps/api         # planned
+├── apps/api         # foundation exists; Railway not configured
 ├── apps/projects    # planned
 └── ...
 ```
@@ -82,7 +82,7 @@ Portfolio   Blog
  Vercel    Vercel
 ```
 
-**Planned** topology (API not implemented or deployed yet):
+**Planned** topology (API foundation exists locally; Railway and PostgreSQL are not configured):
 
 ```text
                     GitHub
@@ -246,9 +246,9 @@ When adding a new **frontend** application such as Blog or Projects:
 5. Add the public path routing/rewrite strategy.
 6. Keep the portfolio at `/` unchanged.
 
-When adding the **API** (future implementation):
+When deploying the **API** (future persistence and hosting milestone):
 
-1. Create `apps/api` in the monorepo.
+1. `apps/api` already exists in the monorepo as a health/ready foundation.
 2. Develop against local Postgres (planned Compose) and Nx serve.
 3. Deploy independently to Railway (or a Railway-preview URL).
 4. Validate health, readiness, and the V1 read APIs.
@@ -273,7 +273,7 @@ The API should **not** initially deploy as Vercel Functions:
 
 Vercel remains the right host for static Portfolio and Blog output.
 
-Do not add Railway configuration, Docker files, or `apps/api` in this documentation milestone.
+Do not add Railway configuration or Docker files in the API foundation milestone. `apps/api` exists as a local Nx application only.
 
 ## Future evolution
 

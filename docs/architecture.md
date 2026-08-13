@@ -18,7 +18,7 @@ The long-term shape of this platform includes multiple applications and, later, 
 
 - `portfolio`
 - `blog`
-- `api` (planned Developer Platform API)
+- `api` (Developer Platform API foundation)
 - `playground`
 - `architecture-lab`
 - `interview-lab`
@@ -26,7 +26,7 @@ The long-term shape of this platform includes multiple applications and, later, 
 
 A monorepo keeps shared conventions, tooling, and libraries in one place while preserving clear application boundaries.
 
-The monorepo is incremental by design. Current applications: `apps/portfolio` and `apps/blog`. The next planned application is `apps/api` (ADR-0004). It is not in the repository yet.
+The monorepo is incremental by design. Current applications: `apps/portfolio`, `apps/blog`, and `apps/api` (health/ready foundation; ADR-0004). PostgreSQL, Projects, and Railway are later milestones.
 
 ## Why Nx?
 
@@ -132,7 +132,7 @@ That use case is now accepted (ADR-0004):
 - platform metadata
 - a public HTTP contract for future dynamic content, Admin, and MCP
 
-This is an architectural evolution, not a rewrite. Portfolio and Blog stay static. Blog Markdown stays the article source of truth (ADR-0003). `apps/api` is the next application to implement; it is not in the tree yet.
+This is an architectural evolution, not a rewrite. Portfolio and Blog stay static. Blog Markdown stays the article source of truth (ADR-0003). `apps/api` exists as a NestJS/Fastify foundation (`GET /v1/health`, `GET /v1/ready`). Persistence and remaining V1 domains are later PRs.
 
 Planned V1 API posture: public, read-only, no authentication, no article table. See ADR-0004 through ADR-0007.
 

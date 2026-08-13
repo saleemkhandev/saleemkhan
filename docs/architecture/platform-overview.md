@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`saleem-platform` is an Nx monorepo for a personal engineering platform. Public frontends are Angular. A Developer Platform API (`apps/api`, NestJS) is the accepted next application and is not in the repository yet.
+`saleem-platform` is an Nx monorepo for a personal engineering platform. Public frontends are Angular. A Developer Platform API (`apps/api`, NestJS + Fastify) exists as a health/ready foundation; persistence and remaining V1 domains are later milestones.
 
 It combines:
 
@@ -13,7 +13,7 @@ It combines:
 - Architecture demonstrations
 - Content administration
 
-The platform is intentionally designed to grow from a simple portfolio into a production-quality engineering platform: static public frontends plus a planned Developer Platform API.
+The platform is intentionally designed to grow from a simple portfolio into a production-quality engineering platform: static public frontends plus a Developer Platform API.
 
 ## High-level architecture
 
@@ -32,7 +32,7 @@ Current public site:
               Portfolio App           Blog App
 ```
 
-Planned (API and Projects are not in the repository yet):
+Planned (Projects frontend, PostgreSQL, and Railway are not in the repository yet; `apps/api` foundation exists):
 
 ```text
                          saleemkhan.dev              api.saleemkhan.dev
@@ -114,9 +114,9 @@ URL:
 
 `https://saleemkhan.dev/architecture`
 
-### Developer Platform API (planned)
+### Developer Platform API (foundation)
 
-Independently deployable modular monolith at `apps/api` (not created yet).
+Independently deployable modular monolith at `apps/api`. This milestone exposes health and readiness only.
 
 Planned URL:
 
@@ -211,7 +211,7 @@ libs/utils
 
 The backend was deferred until Portfolio and Blog existed as static products.
 
-That decision is now superseded by ADR-0004: a Developer Platform API is the accepted next application. It is **not implemented yet**.
+That decision is now superseded by ADR-0004: a Developer Platform API exists as a NestJS/Fastify foundation. PostgreSQL and remaining V1 domains are not implemented yet.
 
 Planned flow:
 
