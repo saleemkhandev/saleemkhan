@@ -70,9 +70,17 @@ GET /v1/ready
 GET /docs
 ```
 
-### 4b — Persistence and remaining V1 domains (not started)
+### 4b — Persistence foundation (delivered)
 
-- Drizzle + PostgreSQL
+- PostgreSQL 16 via root `compose.yaml` (local only)
+- Drizzle ORM, committed migrations, `DATABASE_URL`
+- Database-aware `GET /v1/ready` (`SELECT 1`)
+- Test database `saleem_platform_test` and CI PostgreSQL service
+
+Still not implemented: domain tables, Projects API, Railway.
+
+### 4c — Remaining V1 domains and hosting (not started)
+
 - Railway + managed PostgreSQL
 - `https://api.saleemkhan.dev`
 

@@ -5,4 +5,5 @@
 /.nx/workspace-data
 .angular
 apps/blog/src/app/generated
+apps/api/drizzle/migrations
 pnpm-lock.yaml

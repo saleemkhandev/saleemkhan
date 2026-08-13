@@ -4,12 +4,12 @@
 
 **Current** frontend hosting: Vercel.
 
-| Application | Host                              | Status                   |
-| ----------- | --------------------------------- | ------------------------ |
-| Portfolio   | Vercel                            | Deployed                 |
-| Blog        | Vercel                            | Deployed                 |
-| API         | Railway                           | Planned; not deployed    |
-| PostgreSQL  | Managed PostgreSQL (with the API) | Planned; not provisioned |
+| Application | Host                         | Status                                 |
+| ----------- | ---------------------------- | -------------------------------------- |
+| Portfolio   | Vercel                       | Deployed                               |
+| Blog        | Vercel                       | Deployed                               |
+| API         | Railway                      | Planned; not deployed                  |
+| PostgreSQL  | Local Compose; managed later | Local only; production not provisioned |
 
 The API hostname **target** is `https://api.saleemkhan.dev`. That DNS and Railway service do not exist yet.
 
@@ -82,7 +82,7 @@ Portfolio   Blog
  Vercel    Vercel
 ```
 
-**Planned** topology (API foundation exists locally; Railway and PostgreSQL are not configured):
+**Planned** topology (API and local PostgreSQL exist; Railway is not configured):
 
 ```text
                     GitHub
@@ -246,12 +246,12 @@ When adding a new **frontend** application such as Blog or Projects:
 5. Add the public path routing/rewrite strategy.
 6. Keep the portfolio at `/` unchanged.
 
-When deploying the **API** (future persistence and hosting milestone):
+When deploying the **API** (future Railway milestone):
 
-1. `apps/api` already exists in the monorepo as a health/ready foundation.
-2. Develop against local Postgres (planned Compose) and Nx serve.
+1. `apps/api` already exists in the monorepo with local PostgreSQL + Drizzle.
+2. Develop against Compose Postgres and Nx serve.
 3. Deploy independently to Railway (or a Railway-preview URL).
-4. Validate health, readiness, and the V1 read APIs.
+4. Validate health, readiness, and later V1 read APIs.
 5. Attach `api.saleemkhan.dev`.
 6. Do not put the API behind the Portfolio SPA rewrite on Vercel.
 
@@ -273,7 +273,7 @@ The API should **not** initially deploy as Vercel Functions:
 
 Vercel remains the right host for static Portfolio and Blog output.
 
-Do not add Railway configuration or Docker files in the API foundation milestone. `apps/api` exists as a local Nx application only.
+Do not add Railway configuration in this persistence milestone. Local PostgreSQL is Compose-only. `apps/api` remains an Nx application on the host.
 
 ## Future evolution
 
@@ -296,7 +296,7 @@ Public website topology (frontends):
 API and Admin remain separate hosts:
 
 ```text
-api.saleemkhan.dev      → Developer Platform API (planned)
+api.saleemkhan.dev      → Developer Platform API (local persistence exists; Railway planned)
 admin.saleemkhan.dev    → Admin (later)
 ```
 

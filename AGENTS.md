@@ -27,7 +27,7 @@ Do not blindly implement an old plan when the current code or an accepted ADR sa
 
 - Nx monorepo.
 - Angular applications for public frontends.
-- Independently deployable backend applications live under `apps/` when an accepted ADR requires them. `apps/api` exists as a NestJS/Fastify foundation (health/ready only; persistence is not implemented).
+- Independently deployable backend applications live under `apps/` when an accepted ADR requires them. `apps/api` is a NestJS/Fastify modular monolith with a PostgreSQL + Drizzle persistence foundation (health/ready; no Projects API yet).
 - Keep applications relatively thin: bootstrapping, routing, composition, and application-specific wiring.
 - Put genuinely reusable capabilities into `libs/`.
 - Applications must not directly depend on other applications.
@@ -35,7 +35,7 @@ Do not blindly implement an old plan when the current code or an accepted ADR sa
 - Do not create abstractions without a real consumer or a clearly documented platform requirement.
 - Prefer incremental evolution over speculative architecture.
 - Do not introduce micro-frontends merely because this is a monorepo.
-- Do not introduce backend services, queues, caches, Kubernetes, or cloud infrastructure without a concrete requirement or learning objective. The Developer Platform API foundation is implemented (ADR-0004); PostgreSQL, Drizzle, Docker, and Railway are not.
+- Do not introduce backend services, queues, caches, Kubernetes, or cloud infrastructure without a concrete requirement or learning objective. The Developer Platform API and local PostgreSQL + Drizzle persistence foundation are implemented (ADR-0004, ADR-0006). Railway is not.
 - Document significant architectural decisions as ADRs.
 
 ## Planned workspace
@@ -76,7 +76,7 @@ Planned public applications:
 
 - Portfolio (exists)
 - Blog (exists)
-- Developer Platform API (`apps/api`, foundation exists; persistence not implemented)
+- Developer Platform API (`apps/api`, foundation + persistence exist; Projects API and Railway are not implemented)
 - Projects
 - Playground
 - Architecture Lab

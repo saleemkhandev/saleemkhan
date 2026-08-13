@@ -21,6 +21,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    env:
+      TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/saleem_platform_test
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: saleem_platform_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d saleem_platform_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,6 +68,11 @@ jobs:
 
       - name: Typecheck affected
         run: pnpm exec nx affected -t typecheck
+
+      - name: Migrate API test database
+        run: pnpm db:migrate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/saleem_platform_test
 
       - name: Test affected
         run: pnpm exec nx affected -t test

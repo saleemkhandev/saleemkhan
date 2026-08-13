@@ -11,16 +11,18 @@ export class HealthResponse {
   version!: string;
 }
 
-export class ReadyResponse {
+export class ReadyChecks {
   @ApiProperty({ enum: ['ok'], example: 'ok' })
-  status!: 'ok';
+  application!: 'ok';
 
-  @ApiProperty({
-    example: { application: 'ok' },
-    description:
-      'Named readiness checks. A later persistence milestone can add a database check here.',
-  })
-  checks!: {
-    readonly application: 'ok';
-  };
+  @ApiProperty({ enum: ['ok', 'error'], example: 'ok' })
+  database!: 'ok' | 'error';
+}
+
+export class ReadyResponse {
+  @ApiProperty({ enum: ['ok', 'not_ready'], example: 'ok' })
+  status!: 'ok' | 'not_ready';
+
+  @ApiProperty({ type: ReadyChecks })
+  checks!: ReadyChecks;
 }

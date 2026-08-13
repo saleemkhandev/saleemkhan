@@ -4,6 +4,8 @@ import {
   DEFAULT_PRODUCTION_CORS_ORIGINS,
 } from '../common/constants.js';
 
+export const APP_CONFIG = 'APP_CONFIG';
+
 export const NODE_ENVIRONMENTS = ['development', 'test', 'production'] as const;
 
 export type NodeEnvironment = (typeof NODE_ENVIRONMENTS)[number];
@@ -16,6 +18,7 @@ const envSchema = z.object({
   LOG_LEVEL: z
     .enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace'])
     .optional(),
+  DATABASE_URL: z.string().optional(),
 });
 
 export type AppConfig = {
@@ -24,6 +27,7 @@ export type AppConfig = {
   readonly port: number;
   readonly corsOrigins: readonly string[];
   readonly logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
+  readonly databaseUrl: string | undefined;
 };
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
@@ -33,22 +37,16 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
     PORT: env['PORT'],
     CORS_ORIGINS: env['CORS_ORIGINS'],
     LOG_LEVEL: env['LOG_LEVEL'],
+    DATABASE_URL: env['DATABASE_URL'],
   });
 
   if (!parsed.success) {
-    const details = parsed.error.issues
-      .map((issue) => {
-        const path =
-          issue.path.length > 0 ? issue.path.map(String).join('.') : '(root)';
-        return `${path}: ${issue.message}`;
-      })
-      .join('\n');
-
-    throw new Error(`Invalid API configuration:\n${details}`);
+    throw invalidConfig(parsed.error.issues);
   }
 
   const nodeEnv = parsed.data.NODE_ENV;
   const corsOrigins = parseCorsOrigins(parsed.data.CORS_ORIGINS, nodeEnv);
+  const databaseUrl = parseDatabaseUrl(parsed.data.DATABASE_URL, nodeEnv);
 
   return {
     nodeEnv,
@@ -56,7 +54,22 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
     port: parsed.data.PORT,
     corsOrigins,
     logLevel: parsed.data.LOG_LEVEL ?? defaultLogLevel(nodeEnv),
+    databaseUrl,
   };
+}
+
+function invalidConfig(
+  issues: ReadonlyArray<{ path: ReadonlyArray<PropertyKey>; message: string }>,
+): Error {
+  const details = issues
+    .map((issue) => {
+      const path =
+        issue.path.length > 0 ? issue.path.map(String).join('.') : '(root)';
+      return `${path}: ${issue.message}`;
+    })
+    .join('\n');
+
+  return new Error(`Invalid API configuration:\n${details}`);
 }
 
 function defaultLogLevel(nodeEnv: NodeEnvironment): AppConfig['logLevel'] {
@@ -69,6 +82,40 @@ function defaultLogLevel(nodeEnv: NodeEnvironment): AppConfig['logLevel'] {
   }
 
   return 'debug';
+}
+
+function parseDatabaseUrl(
+  raw: string | undefined,
+  nodeEnv: NodeEnvironment,
+): string | undefined {
+  const value = raw?.trim();
+
+  if (value === undefined || value.length === 0) {
+    if (nodeEnv === 'test') {
+      return undefined;
+    }
+
+    throw new Error(
+      'Invalid API configuration:\nDATABASE_URL: is required in development and production',
+    );
+  }
+
+  if (!isPostgresConnectionString(value)) {
+    throw new Error(
+      'Invalid API configuration:\nDATABASE_URL: must be a postgresql:// connection string',
+    );
+  }
+
+  return value;
+}
+
+export function isPostgresConnectionString(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'postgresql:' || url.protocol === 'postgres:';
+  } catch {
+    return false;
+  }
 }
 
 function parseCorsOrigins(
