@@ -26,7 +26,8 @@ Do not blindly implement an old plan when the current code or an accepted ADR sa
 ## Core principles
 
 - Nx monorepo.
-- Angular applications.
+- Angular applications for public frontends.
+- Independently deployable backend applications live under `apps/` when an accepted ADR requires them (`apps/api` is planned; not present yet).
 - Keep applications relatively thin: bootstrapping, routing, composition, and application-specific wiring.
 - Put genuinely reusable capabilities into `libs/`.
 - Applications must not directly depend on other applications.
@@ -34,7 +35,7 @@ Do not blindly implement an old plan when the current code or an accepted ADR sa
 - Do not create abstractions without a real consumer or a clearly documented platform requirement.
 - Prefer incremental evolution over speculative architecture.
 - Do not introduce micro-frontends merely because this is a monorepo.
-- Do not introduce backend services, queues, caches, Kubernetes, or cloud infrastructure without a concrete requirement or learning objective.
+- Do not introduce backend services, queues, caches, Kubernetes, or cloud infrastructure without a concrete requirement or learning objective. The Developer Platform API is an accepted requirement (ADR-0004); it is not implemented yet.
 - Document significant architectural decisions as ADRs.
 
 ## Planned workspace
@@ -44,6 +45,7 @@ saleem-platform/
 ├── apps/
 │   ├── portfolio/
 │   ├── blog/
+│   ├── api/                 # planned Developer Platform API
 │   ├── projects/
 │   ├── playground/
 │   ├── architecture-lab/
@@ -68,12 +70,13 @@ This is the target evolution, not a requirement that all directories exist immed
 
 ## Current product direction
 
-The existing portfolio is the starting application.
+Current applications: Portfolio and Blog.
 
 Planned public applications:
 
-- Portfolio
-- Blog
+- Portfolio (exists)
+- Blog (exists)
+- Developer Platform API (`apps/api`, architecture accepted, not implemented)
 - Projects
 - Playground
 - Architecture Lab
@@ -94,19 +97,27 @@ Admin:
 
 - `https://admin.saleemkhan.dev/` → Admin
 
+Planned API host (not a website path):
+
+- `https://api.saleemkhan.dev/` → Developer Platform API
+
 Do not change the portfolio to `/portfolio`; the root domain represents the portfolio.
 
 ## Deployment strategy
 
-Current deployment platform: Vercel.
+Current frontend deployment platform: Vercel.
+
+Planned API deployment platform: Railway, with managed PostgreSQL. Not configured yet.
 
 The monorepo and deployment topology are separate concerns.
 
-Multiple applications may live in the same Nx monorepo and may be deployed as independent Vercel projects while presenting a unified public URL structure.
+Multiple applications may live in the same Nx monorepo and may be deployed as independent projects (Vercel for static frontends, Railway for the API) while presenting a unified public website URL structure.
 
 Do not introduce Module Federation solely to implement `/blog`, `/projects`, etc.
 
 Evaluate Module Federation only when runtime composition or independent deployment creates a genuine benefit.
+
+Frontends and MCP must not access PostgreSQL. Only `apps/api` owns persistence (ADR-0007).
 
 ## Application dependency model
 
@@ -122,19 +133,17 @@ Data-access / UI libraries
 Utilities
 ```
 
-For dynamic content:
+For dynamic content and the planned API:
 
 ```text
-Application
+Frontend applications / future MCP
+  ↓ HTTPS
+Developer Platform API (apps/api)
   ↓
-Data-access
-  ↓
-Backend API
-  ↓
-Database / external services
+PostgreSQL
 ```
 
-Applications should not directly depend on sibling applications.
+Applications should not directly depend on sibling applications. They must not import `apps/api`. Communication across independently deployed apps is HTTP.
 
 ## Shared libraries
 

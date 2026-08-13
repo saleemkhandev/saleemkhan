@@ -6,8 +6,9 @@ This document defines how changes move from a feature branch to production
 for `saleem-platform`.
 
 GitHub Actions is the mandatory quality gate.
-Vercel is the deployment system.
-They are intentionally separate.
+Vercel is the deployment system for static frontend applications (Portfolio, Blog).
+A Railway deployment for the Developer Platform API is planned (ADR-0004); it is not configured yet.
+Quality gate and deploy remain separate.
 
 ## Branch strategy
 
@@ -23,6 +24,7 @@ Examples:
 
 - `feature/blog-vercel`
 - `feature/projects`
+- `docs/developer-platform-api`
 - `fix/blog-seo`
 - `chore/ci`
 
@@ -49,7 +51,8 @@ review (when collaborators/reviewers are practical)
       ↓
 merge to main
       ↓
-Vercel production deployment
+frontend: Vercel production
+API (future): Railway, once apps/api exists
 ```
 
 ## Local validation
@@ -119,6 +122,11 @@ invalidate the affected set appropriately.
 Blog production builds still run `prepare-content` through the existing
 `blog:build` → `prepare-content` dependency. CI does not bypass that pipeline.
 
+When `apps/api` is added, it should expose the same target names used by CI
+(`lint`, `typecheck`, `test`, `build`) so the existing affected workflow
+includes it automatically. Do not create a separate API CI system. This
+workflow file is not changed in the architecture-documentation milestone.
+
 ## Test infrastructure
 
 Current unit tests use Node.js built-in `node:test` against pure logic:
@@ -164,26 +172,25 @@ GitHub
   │      ↓
   │   GitHub Actions CI checks
   │      ↓
-  │   Vercel Preview (per app project)
+  │   Vercel Preview (frontend app projects)
   │
   └── main
          ↓
-     Vercel Production
+     Vercel Production (Portfolio, Blog)
+         ↓
+     Railway (planned, after apps/api exists)
 ```
 
 Responsibilities:
 
 - **GitHub Actions** = quality gate (format/lint/typecheck/test/build)
-- **Vercel** = preview + production deployment
+- **Vercel** = preview + production for static frontends
+- **Railway** = planned production for the API + managed PostgreSQL (not configured yet)
 
-CI must not duplicate Vercel deploys.
-Vercel wiring for Blog (project creation, root `/blog` rewrites, production URL)
-is intentionally deferred to a later task.
+CI must not duplicate Vercel or Railway deploys.
 
-Until that wiring lands:
-
-- Portfolio may continue deploying from the existing Vercel project
-- Blog remains production-ready locally and CI-validated, but not production-deployed by this change
+Root `vercel.json` rewrites `/blog` and `/blog/:path*` to the Blog Vercel project.
+Portfolio remains the default project for `saleemkhan.dev`.
 
 ## Script semantics
 
@@ -202,5 +209,6 @@ Root scripts validate the **workspace**, not only Portfolio:
 
 - Husky / lint-staged / local git hooks
 - Nx Cloud / remote caching
-- Vercel Blog project creation
-- Production `/blog` reverse-proxy rewrites
+- `apps/api` implementation (NestJS, Fastify, Drizzle, Docker, Railway)
+- MCP server
+- Production API hostname (`api.saleemkhan.dev`)

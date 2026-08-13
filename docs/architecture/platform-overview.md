@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`saleem-platform` is an Nx/Angular monorepo for a personal engineering platform.
+`saleem-platform` is an Nx monorepo for a personal engineering platform. Public frontends are Angular. A Developer Platform API (`apps/api`, NestJS) is the accepted next application and is not in the repository yet.
 
 It combines:
 
@@ -13,32 +13,42 @@ It combines:
 - Architecture demonstrations
 - Content administration
 
-The platform is intentionally designed to grow from a simple portfolio into a real, production-quality frontend platform.
+The platform is intentionally designed to grow from a simple portfolio into a production-quality engineering platform: static public frontends plus a planned Developer Platform API.
 
 ## High-level architecture
+
+Current public site:
 
 ```text
                          saleemkhan.dev
                                │
                          Routing Layer
                                │
-          ┌────────────────────┼────────────────────┐
-          ↓                    ↓                    ↓
-         `/`                `/blog`             `/projects`
-          │                    │                    │
-          ↓                    ↓                    ↓
-     Portfolio App          Blog App           Projects App
-          │                    │                    │
-          └────────────────────┼────────────────────┘
-                               ↓
-                       Shared Platform
-                               │
-                ┌──────────────┼──────────────┐
-                ↓              ↓              ↓
-               UI        Data Access      Analytics
+                    ┌──────────┴──────────┐
+                    ↓                     ↓
+                   `/`                 `/blog`
+                    │                     │
+                    ↓                     ↓
+              Portfolio App           Blog App
 ```
 
-Admin is a separate application boundary:
+Planned (API and Projects are not in the repository yet):
+
+```text
+                         saleemkhan.dev              api.saleemkhan.dev
+                               │                              │
+                         Routing Layer                    Railway
+                    ┌──────────┼──────────┐                   │
+                    ↓          ↓          ↓                   ↓
+                   `/`      `/blog`  `/projects`         apps/api
+                    │          │          │                   │
+                    ↓          ↓          ↓                   ↓
+              Portfolio      Blog      Projects          PostgreSQL
+                    │          │          │
+                    └──── HTTPS (future) ─┴───────────────────┘
+```
+
+Admin is a separate application boundary (later):
 
 ```text
 admin.saleemkhan.dev
@@ -51,6 +61,15 @@ admin.saleemkhan.dev
         │
         ↓
       API
+        │
+        ↓
+   PostgreSQL
+```
+
+Future MCP is also an API consumer, not a database client:
+
+```text
+AI client → MCP server → HTTPS → Developer Platform API → PostgreSQL
 ```
 
 ## Planned applications
@@ -95,6 +114,16 @@ URL:
 
 `https://saleemkhan.dev/architecture`
 
+### Developer Platform API (planned)
+
+Independently deployable modular monolith at `apps/api` (not created yet).
+
+Planned URL:
+
+`https://api.saleemkhan.dev`
+
+See ADR-0004 through ADR-0007.
+
 ### Admin
 
 Authenticated content-management application.
@@ -110,6 +139,7 @@ saleem-platform/
 ├── apps/
 │   ├── portfolio/
 │   ├── blog/
+│   ├── api/                 # planned
 │   ├── projects/
 │   ├── playground/
 │   ├── architecture-lab/
@@ -150,9 +180,11 @@ data-access / ui
 utils
 ```
 
-Applications should not directly depend on sibling applications.
+Applications should not directly depend on sibling applications. Independently deployed apps integrate over HTTP (ADR-0007). Shared `libs/data-access` waits until a second frontend shares one client.
 
-Example:
+Current Blog does not consume the API. Markdown remains the source of truth (ADR-0003).
+
+Long-term example, after libraries exist:
 
 ```text
 apps/projects
@@ -160,20 +192,10 @@ apps/projects
 libs/feature/projects
       ↓
 libs/data-access
+      ↓ HTTPS
+apps/api
       ↓
-API
-```
-
-and:
-
-```text
-apps/blog
-      ↓
-libs/feature/blog
-      ↓
-libs/data-access
-      ↓
-API
+PostgreSQL
 ```
 
 Both may consume shared platform libraries:
@@ -187,23 +209,23 @@ libs/utils
 
 ## Backend evolution
 
-The backend is deliberately not introduced prematurely.
+The backend was deferred until Portfolio and Blog existed as static products.
 
-Initial content can remain static/local.
+That decision is now superseded by ADR-0004: a Developer Platform API is the accepted next application. It is **not implemented yet**.
 
-When dynamic content becomes necessary:
+Planned flow:
 
 ```text
-Application
+Frontend applications / future MCP
+    ↓ HTTPS
+Developer Platform API (apps/api)
     ↓
-Data-access
-    ↓
-Backend API
-    ↓
-Database
+PostgreSQL
 ```
 
-Admin and authentication should be introduced when there is a real content-management requirement.
+Only the API owns persistence. Blog Markdown remains the article source of truth until a later, explicit migration (ADR-0003, ADR-0007).
+
+Admin and authentication should be introduced when there is a real content-management requirement (roadmap Phase 7). MCP follows as an HTTP client (Phase 8).
 
 ## Architectural philosophy
 
