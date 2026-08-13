@@ -1,8 +1,21 @@
 # Deployment Architecture
 
-## Current platform
+## Current vs planned
 
-Deployment platform: Vercel.
+**Current** frontend hosting: Vercel.
+
+| Application | Host                              | Status                   |
+| ----------- | --------------------------------- | ------------------------ |
+| Portfolio   | Vercel                            | Deployed                 |
+| Blog        | Vercel                            | Deployed                 |
+| API         | Railway                           | Planned; not deployed    |
+| PostgreSQL  | Managed PostgreSQL (with the API) | Planned; not provisioned |
+
+The API hostname **target** is `https://api.saleemkhan.dev`. That DNS and Railway service do not exist yet.
+
+## Current frontend platform
+
+Deployment platform for Portfolio and Blog: Vercel.
 
 ## Public domain
 
@@ -21,7 +34,13 @@ saleemkhan.dev/playground
 saleemkhan.dev/architecture
 ```
 
-The portfolio should remain at `/`; there is no `/portfolio` route planned.
+Planned API host (not a website path):
+
+```text
+api.saleemkhan.dev
+```
+
+The portfolio should remain at `/`; there is no `/portfolio` route planned. The API is a separate operational boundary (ADR-0004, ADR-0007), analogous to Admin’s subdomain rather than `/blog`-style path mounting.
 
 ## Admin
 
@@ -41,27 +60,48 @@ One Git repository can contain:
 saleem-platform/
 ├── apps/portfolio
 ├── apps/blog
-├── apps/projects
+├── apps/api         # planned
+├── apps/projects    # planned
 └── ...
 ```
 
-while Vercel may have independent projects for individual applications.
+while each application may deploy to a different platform.
 
-Conceptually:
+**Current** frontend topology:
 
 ```text
 GitHub repository
         │
         ↓
 saleem-platform
-   ┌────┼────┐
-   ↓    ↓    ↓
-Portfolio Blog Projects
-   │     │     │
-   ↓     ↓     ↓
- Vercel Vercel Vercel
- Project Project Project
+   ┌────┴────┐
+   ↓         ↓
+Portfolio   Blog
+   │         │
+   ↓         ↓
+ Vercel    Vercel
 ```
+
+**Planned** topology (API not implemented or deployed yet):
+
+```text
+                    GitHub
+                       │
+                GitHub Actions
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+     Vercel          Vercel        Railway
+   Portfolio          Blog           API
+        │              │              │
+        │              │          PostgreSQL
+        │              │
+        └──── HTTPS ───┴──────────────┘
+                       │
+                  API boundary
+```
+
+Frontends and a future MCP server talk to the API over HTTPS. They never connect to PostgreSQL.
 
 The public experience can still be unified:
 
@@ -197,20 +237,47 @@ Blog must **not** publish a competing root `robots.txt`. Blog discovery files li
 
 ## Incremental deployment strategy
 
-When adding a new application such as Blog:
+When adding a new **frontend** application such as Blog or Projects:
 
-1. Create `apps/blog`.
+1. Create the Nx application.
 2. Develop and test it independently.
 3. Deploy it as an independent Vercel project or temporary Vercel URL.
 4. Validate its build and runtime behavior.
-5. Add the public `/blog` routing/rewrite strategy.
+5. Add the public path routing/rewrite strategy.
 6. Keep the portfolio at `/` unchanged.
+
+When adding the **API** (future implementation):
+
+1. Create `apps/api` in the monorepo.
+2. Develop against local Postgres (planned Compose) and Nx serve.
+3. Deploy independently to Railway (or a Railway-preview URL).
+4. Validate health, readiness, and the V1 read APIs.
+5. Attach `api.saleemkhan.dev`.
+6. Do not put the API behind the Portfolio SPA rewrite on Vercel.
 
 This minimizes risk to the existing public site.
 
+## Planned API hosting (not deployed)
+
+Target: Railway for the NestJS modular monolith, plus managed PostgreSQL on the same platform.
+
+Planned hostname: `https://api.saleemkhan.dev`.
+
+The API should **not** initially deploy as Vercel Functions:
+
+- a long-lived Node backend is a better fit for a Nest modular monolith
+- PostgreSQL connection management is simpler on a persistent process
+- migrations are an explicit release step, not a per-request side effect
+- the runtime mental model stays one API process
+- the backend learning objective is a real service, not a serverless adapter around Nest
+
+Vercel remains the right host for static Portfolio and Blog output.
+
+Do not add Railway configuration, Docker files, or `apps/api` in this documentation milestone.
+
 ## Future evolution
 
-Potential future topology:
+Public website topology (frontends):
 
 ```text
                          saleemkhan.dev
@@ -224,14 +291,19 @@ Potential future topology:
         ↓                      ↓                      ↓
    Portfolio                 Blog                  Projects
       App                     App                    App
-        │                      │                      │
-        └──────────────────────┼──────────────────────┘
-                               ↓
-                       Shared Platform
 ```
 
-Admin remains:
+API and Admin remain separate hosts:
 
 ```text
-admin.saleemkhan.dev
+api.saleemkhan.dev      → Developer Platform API (planned)
+admin.saleemkhan.dev    → Admin (later)
 ```
+
+Future MCP:
+
+```text
+AI client → MCP server → HTTPS → API → PostgreSQL
+```
+
+MCP must not access PostgreSQL directly.

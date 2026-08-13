@@ -10,14 +10,15 @@ Angular is a deliberate product and career signal for this repository.
 - The portfolio itself should demonstrate modern Angular architecture.
 - Standalone components, Signals, typed DI, SSR/SSG, and strict TypeScript provide a mature foundation for a long-lived engineering platform.
 
-This project intentionally does **not** use React, Next.js, Vue, Svelte, or Astro.
+This project intentionally does **not** use React, Next.js, Vue, Svelte, or Astro for public frontend applications.
 
 ## Why a monorepo?
 
-The long-term shape of this platform includes multiple Angular applications and shared libraries:
+The long-term shape of this platform includes multiple applications and, later, shared libraries:
 
 - `portfolio`
 - `blog`
+- `api` (planned Developer Platform API)
 - `playground`
 - `architecture-lab`
 - `interview-lab`
@@ -25,7 +26,7 @@ The long-term shape of this platform includes multiple Angular applications and 
 
 A monorepo keeps shared conventions, tooling, and libraries in one place while preserving clear application boundaries.
 
-The monorepo is incremental by design. Current applications: `apps/portfolio` and `apps/blog`.
+The monorepo is incremental by design. Current applications: `apps/portfolio` and `apps/blog`. The next planned application is `apps/api` (ADR-0004). It is not in the repository yet.
 
 ## Why Nx?
 
@@ -33,7 +34,7 @@ Nx was chosen for the initial workspace.
 
 Reasons:
 
-- The repository is expected to grow into multiple Angular apps and shared libraries.
+- The repository is expected to grow into multiple apps (Angular frontends and a NestJS API) and shared libraries.
 - Affected builds, project graph visibility, and caching become valuable as soon as a second app or shared library appears.
 - `@nx/angular` provides a first-class Angular developer experience.
 - The workspace remains understandable with a small number of thin applications.
@@ -63,7 +64,7 @@ The public landing page currently uses a Deebo-inspired split layout:
 - fixed left profile panel with portrait and identity
 - scrolling main column for intro, biography, experience, focus, journey, and engineering notes
 
-This is an intentional product choice for the current milestone. Shared libraries are still deferred until real reuse appears.
+This is an intentional product choice for the current frontend milestone. Shared libraries are still deferred until real reuse appears.
 
 ## Portfolio → Blog presentation
 
@@ -71,7 +72,7 @@ Portfolio links to Blog through public URLs only (`/blog`, `/blog/<slug>`). It d
 
 Latest-article cards on the homepage use Portfolio-local featured metadata in `apps/portfolio/src/app/core/constants/featured-articles.ts`. That list is intentionally duplicated presentation data. Markdown under `apps/blog/content/articles/` remains Blog's source of truth (ADR-0003).
 
-A public content API can replace the duplicated metadata later. Do not introduce a shared content library until a second consumer actually needs the same implementation.
+A public content API can replace the duplicated metadata later. Do not introduce a shared content library until a second consumer actually needs the same implementation. The planned Developer Platform API (ADR-0004) does **not** persist articles in V1.
 
 ## Why standalone Angular components?
 
@@ -100,7 +101,7 @@ RxJS remains available where stream semantics are useful (for example, the intro
 
 ## Why SSG/prerender instead of a long-lived Node SSR server?
 
-The first milestone is a public marketing/engineering landing page.
+The first milestone is a public marketing/engineering landing page. Blog followed the same static model.
 
 Chosen approach:
 
@@ -113,19 +114,33 @@ This gives:
 - strong SEO through pre-rendered HTML
 - fast first paint
 - simple static deployment on Vercel
-- no requirement to operate a Node server for the initial site
+- no requirement to operate a Node server for Portfolio or Blog
 
-Full dynamic SSR remains available later if authenticated or highly dynamic routes appear. It is not needed for the first landing page.
+Full dynamic SSR remains available later if authenticated or highly dynamic routes appear. It is not needed for the current landing page or Markdown blog.
 
-## Why no backend initially?
+The planned Developer Platform API is a different runtime: a long-lived Node process. It does not change the frontend rendering choice.
 
-There is no product requirement for APIs, forms backends, CMS, or authenticated experiences yet.
+## Why the backend waited, and why it exists as a plan now
 
-Adding a backend now would create infrastructure without a corresponding user need.
+The platform started frontend-first because Portfolio and Blog were the immediate product requirements. There was no user need for APIs, forms backends, a CMS, or authenticated experiences.
 
-## Why no database initially?
+A backend was intentionally deferred until there was a concrete use case. Adding one earlier would have been infrastructure without a corresponding product.
 
-Same reason as the backend: no content model currently requires persistence beyond static files in the repository.
+That use case is now accepted (ADR-0004):
+
+- Projects data for a future Projects application
+- platform metadata
+- a public HTTP contract for future dynamic content, Admin, and MCP
+
+This is an architectural evolution, not a rewrite. Portfolio and Blog stay static. Blog Markdown stays the article source of truth (ADR-0003). `apps/api` is the next application to implement; it is not in the tree yet.
+
+Planned V1 API posture: public, read-only, no authentication, no article table. See ADR-0004 through ADR-0007.
+
+## Why PostgreSQL is planned (and not used by frontends)
+
+The first persistence model that requires a database is API-owned Projects data, not Blog articles.
+
+PostgreSQL is the planned system of record (ADR-0006). Only `apps/api` will own the connection, schema, and migrations. Portfolio, Blog, a future Projects app, Admin, and MCP must not access PostgreSQL directly (ADR-0007).
 
 ## Why no NgRx initially?
 
@@ -133,16 +148,15 @@ The landing page has no shared client state that justifies a global store.
 
 State management will be evaluated when real cross-route or cross-feature state appears.
 
-## Why Vercel?
+## Why Vercel for frontends, and Railway for the planned API?
 
-Vercel fits the initial deployment goals:
+Vercel fits the frontend deployment goals:
 
 - GitHub-connected deploys
-- static hosting for the prerendered Angular output
-- zero paid hosting requirement for the first milestone
+- static hosting for prerendered Angular output
 - straightforward custom-domain attachment for `saleemkhan.dev`
 
-AWS, Cloudflare, databases, and observability can be introduced later when there is a concrete operational need.
+The planned API is not a static site. A long-lived Node process, PostgreSQL connections, and migrations fit Railway better than Vercel Functions (see deployment architecture). Railway is **planned**, not deployed.
 
 ## Content honesty
 
@@ -160,9 +174,10 @@ The growth path is:
 
 1. ship a polished Angular landing page
 2. establish conventions and documentation
-3. add routes and content when they have substance
-4. extract shared libraries only after real reuse appears
-5. introduce infrastructure only when requirements demand it
+3. add Blog as an independently deployable static app
+4. introduce a Developer Platform API when Projects, platform metadata, and future MCP need a real HTTP + persistence boundary
+5. extract shared libraries only after real reuse appears
+6. add Admin, auth, and MCP only when those products exist
 
 Preferred direction:
 

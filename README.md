@@ -9,31 +9,37 @@ Public site: [https://saleemkhan.dev](https://saleemkhan.dev)
 This repository is the long-term home for:
 
 - a public engineering portfolio
+- an engineering blog
 - architecture notes and case studies
+- a planned Developer Platform API
 - technical experiments
 - future playgrounds and labs
 
 ## Architecture
 
 - **Monorepo:** Nx + pnpm
-- **Primary app:** `apps/portfolio`
+- **Current apps:** `apps/portfolio`, `apps/blog`
 - **Layout:** fixed profile panel + scrolling content
 - **Angular:** latest stable Angular 22 with standalone components, Signals, and modern control flow
 - **Rendering:** static prerender (SSG) via Angular SSR tooling
 - **Styling:** SCSS design tokens, no premature design system package
 - **State:** local component state and Signals only (intro role rotator)
-- **Hosting target:** Vercel → `saleemkhan.dev`
+- **Frontend hosting:** Vercel → `saleemkhan.dev`
+- **Planned API:** `apps/api` at `api.saleemkhan.dev` (architecture accepted; not implemented)
 
-See [docs/architecture.md](docs/architecture.md) for decision records.
+See [docs/architecture.md](docs/architecture.md) and [docs/adr/](docs/adr/) for decision records.
 
 ## Repository structure
 
 ```text
 saleemkhan/
 ├── apps/
-│   └── portfolio/          # Public website
+│   ├── portfolio/          # Public website
+│   └── blog/               # Engineering blog at /blog
 ├── docs/
-│   └── architecture.md     # Architecture decisions
+│   ├── architecture.md
+│   ├── architecture/
+│   └── adr/
 ├── vercel.json             # Vercel deployment config
 ├── package.json
 ├── pnpm-workspace.yaml
@@ -41,19 +47,22 @@ saleemkhan/
 └── tsconfig.base.json
 ```
 
+`apps/api` is the next planned application (ADR-0004). It is not in the repository yet.
+
 Future applications and libraries will be added only when there is a concrete need.
 
 ## Technology choices
 
-| Area            | Choice                | Notes                                                         |
-| --------------- | --------------------- | ------------------------------------------------------------- |
-| Framework       | Angular 22            | Deliberate demonstration of primary expertise                 |
-| Workspace       | Nx 23                 | Prepared for multi-app growth without creating empty apps now |
-| Package manager | pnpm                  | Efficient installs and workspace-friendly                     |
-| Language        | TypeScript (strict)   | No `any` without justification                                |
-| Rendering       | Static prerender      | SEO + simple Vercel deploy                                    |
-| State           | Signals / local state | No NgRx yet                                                   |
-| CI hosting      | Vercel                | Free tier friendly for static output                          |
+| Area             | Choice                | Notes                                                         |
+| ---------------- | --------------------- | ------------------------------------------------------------- |
+| Framework        | Angular 22            | Deliberate demonstration of primary expertise                 |
+| Workspace        | Nx 23                 | Prepared for multi-app growth without creating empty apps now |
+| Package manager  | pnpm                  | Efficient installs and workspace-friendly                     |
+| Language         | TypeScript (strict)   | No `any` without justification                                |
+| Rendering        | Static prerender      | SEO + simple Vercel deploy                                    |
+| State            | Signals / local state | No NgRx yet                                                   |
+| Frontend hosting | Vercel                | Static Portfolio and Blog                                     |
+| Planned API      | Railway (future)      | NestJS modular monolith + PostgreSQL; not implemented yet     |
 
 ## Local development
 
