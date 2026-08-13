@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { trackCvDownload } from '../../core/analytics';
 import { SITE } from '../../core/constants/site';
 
 @Component({
@@ -10,4 +11,5 @@ import { SITE } from '../../core/constants/site';
 export class SiteFooter {
   protected readonly site = SITE;
   protected readonly year = new Date().getFullYear();
+  protected readonly trackCvDownload = trackCvDownload;
 }

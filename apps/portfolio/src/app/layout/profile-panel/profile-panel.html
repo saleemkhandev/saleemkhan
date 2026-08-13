@@ -61,6 +61,7 @@
         class="profile__cta"
         [href]="site.resume.href"
         [download]="site.resume.fileName"
+        (click)="trackCvDownload('profile')"
       >
         {{ site.resume.label }}
       </a>
