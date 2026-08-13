@@ -26,6 +26,7 @@
           class="site-footer__link"
           [href]="site.resume.href"
           [download]="site.resume.fileName"
+          (click)="trackCvDownload('footer')"
         >
           Resume
         </a>

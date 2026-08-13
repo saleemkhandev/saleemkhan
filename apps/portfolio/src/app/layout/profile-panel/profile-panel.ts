@@ -4,6 +4,7 @@ import {
   DOCUMENT,
   inject,
 } from '@angular/core';
+import { trackCvDownload } from '../../core/analytics';
 import { SITE } from '../../core/constants/site';
 import { ThemeToggle } from '../theme-toggle/theme-toggle';
 
@@ -17,6 +18,7 @@ import { ThemeToggle } from '../theme-toggle/theme-toggle';
 export class ProfilePanel {
   private readonly document = inject(DOCUMENT);
   protected readonly site = SITE;
+  protected readonly trackCvDownload = trackCvDownload;
 
   protected onNavClick(event: Event, href: string): void {
     if (!href.startsWith('#')) {
