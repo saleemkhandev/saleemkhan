@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { API_VERSION, SERVICE_NAME } from '../../common/constants.js';
+import { DatabaseService } from '../../database/database.service.js';
 import { HealthResponse, ReadyResponse } from './health.types.js';
 
 @Injectable()
 export class HealthService {
+  constructor(private readonly database: DatabaseService) {}
+
   getHealth(): HealthResponse {
     return {
       status: 'ok',
@@ -13,15 +16,17 @@ export class HealthService {
   }
 
   /**
-   * Readiness for this milestone means the Nest/Fastify application
-   * initialized and can serve requests. There is no database yet.
-   * A later persistence PR can add a `database` check beside `application`.
+   * Process health is independent of PostgreSQL.
+   * Readiness requires a lightweight database connectivity check.
    */
-  getReadiness(): ReadyResponse {
+  async getReadiness(): Promise<ReadyResponse> {
+    const databaseOk = await this.database.ping();
+
     return {
-      status: 'ok',
+      status: databaseOk ? 'ok' : 'not_ready',
       checks: {
         application: 'ok',
+        database: databaseOk ? 'ok' : 'error',
       },
     };
   }

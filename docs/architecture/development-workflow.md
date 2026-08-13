@@ -52,7 +52,7 @@ review (when collaborators/reviewers are practical)
 merge to main
       ↓
 frontend: Vercel production
-API (future): Railway, after persistence is added
+API (future): Railway, after the API is hosted
 ```
 
 ## Local validation
@@ -74,6 +74,7 @@ App-specific commands:
 pnpm start                 # portfolio
 pnpm start:blog            # blog
 pnpm start:api             # API at http://localhost:3000
+pnpm db:migrate            # apply API migrations (PostgreSQL required)
 pnpm build:portfolio
 pnpm build:blog
 pnpm build:api
@@ -128,16 +129,23 @@ Blog production builds still run `prepare-content` through the existing
 
 `apps/api` exposes the same target names used by CI (`lint`, `typecheck`,
 `test`, `build`) so the existing affected workflow includes it automatically.
-Do not create a separate API CI system. `.github/workflows/ci.yml` was not
-changed for the API foundation.
+Do not create a separate API CI system.
+
+API database integration tests need PostgreSQL. The existing quality-gate job
+provides a PostgreSQL 16 service container and runs `pnpm db:migrate` against
+`saleem_platform_test` before tests. Locally, start Compose Postgres
+(`docker compose up -d postgres`; database `saleem_platform`) and run API tests
+against the isolated `saleem_platform_test` database on the same server. Unit
+tests still run without a database. Do not skip database tests in CI.
 
 ## Test infrastructure
 
-Current unit tests use Node.js built-in `node:test` against pure logic:
+Current unit tests use Node.js built-in `node:test`:
 
 - Blog content validation (`apps/blog/scripts/lib/`)
 - Blog article query helpers and date formatting
 - Portfolio JSON-LD builder
+- API configuration, health/ready, and database integration (`apps/api`)
 
 This keeps the quality gate useful without introducing a full Angular component
 test harness yet. When component-level tests become necessary, prefer Angular's
@@ -182,7 +190,7 @@ GitHub
          ↓
      Vercel Production (Portfolio, Blog)
          ↓
-     Railway (planned, after persistence)
+     Railway (planned, API hosting)
 ```
 
 Responsibilities:
@@ -213,6 +221,6 @@ Root scripts validate the **workspace**, not only Portfolio:
 
 - Husky / lint-staged / local git hooks
 - Nx Cloud / remote caching
-- PostgreSQL, Drizzle, Docker, Railway for `apps/api`
 - MCP server
 - Production API hostname (`api.saleemkhan.dev`)
+- Railway hosting for `apps/api`

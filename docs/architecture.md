@@ -26,7 +26,7 @@ The long-term shape of this platform includes multiple applications and, later, 
 
 A monorepo keeps shared conventions, tooling, and libraries in one place while preserving clear application boundaries.
 
-The monorepo is incremental by design. Current applications: `apps/portfolio`, `apps/blog`, and `apps/api` (health/ready foundation; ADR-0004). PostgreSQL, Projects, and Railway are later milestones.
+The monorepo is incremental by design. Current applications: `apps/portfolio`, `apps/blog`, and `apps/api` (health/ready + PostgreSQL/Drizzle persistence; ADR-0004, ADR-0006). Projects and Railway are later milestones.
 
 ## Why Nx?
 
@@ -132,15 +132,15 @@ That use case is now accepted (ADR-0004):
 - platform metadata
 - a public HTTP contract for future dynamic content, Admin, and MCP
 
-This is an architectural evolution, not a rewrite. Portfolio and Blog stay static. Blog Markdown stays the article source of truth (ADR-0003). `apps/api` exists as a NestJS/Fastify foundation (`GET /v1/health`, `GET /v1/ready`). Persistence and remaining V1 domains are later PRs.
+This is an architectural evolution, not a rewrite. Portfolio and Blog stay static. Blog Markdown stays the article source of truth (ADR-0003). `apps/api` exists as a NestJS/Fastify service with local PostgreSQL + Drizzle (`GET /v1/health`, `GET /v1/ready`). Projects APIs and Railway are later PRs.
 
 Planned V1 API posture: public, read-only, no authentication, no article table. See ADR-0004 through ADR-0007.
 
-## Why PostgreSQL is planned (and not used by frontends)
+## Why PostgreSQL is used by the API (and not by frontends)
 
-The first persistence model that requires a database is API-owned Projects data, not Blog articles.
+The first persistence model that requires a database is API-owned data, not Blog articles.
 
-PostgreSQL is the planned system of record (ADR-0006). Only `apps/api` will own the connection, schema, and migrations. Portfolio, Blog, a future Projects app, Admin, and MCP must not access PostgreSQL directly (ADR-0007).
+PostgreSQL is the system of record (ADR-0006). Only `apps/api` owns the connection, schema, and migrations. Local development uses Compose for PostgreSQL; the API still runs through `nx serve api`. Portfolio, Blog, a future Projects app, Admin, and MCP must not access PostgreSQL directly (ADR-0007). Domain tables (Projects) are not in this persistence foundation.
 
 ## Why no NgRx initially?
 

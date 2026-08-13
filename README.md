@@ -25,7 +25,7 @@ This repository is the long-term home for:
 - **Styling:** SCSS design tokens, no premature design system package
 - **State:** local component state and Signals only (intro role rotator)
 - **Frontend hosting:** Vercel → `saleemkhan.dev`
-- **API:** `apps/api` foundation at `http://localhost:3000` (health/ready only; Railway later)
+- **API:** `apps/api` at `http://localhost:3000` (health/ready + PostgreSQL persistence foundation; Railway later)
 
 See [docs/architecture.md](docs/architecture.md) and [docs/adr/](docs/adr/) for decision records.
 
@@ -36,7 +36,8 @@ saleemkhan/
 ├── apps/
 │   ├── portfolio/          # Public website
 │   ├── blog/               # Engineering blog at /blog
-│   └── api/                # Developer Platform API foundation
+│   └── api/                # Developer Platform API
+├── compose.yaml            # Local PostgreSQL only
 ├── docs/
 │   ├── architecture.md
 │   ├── architecture/
@@ -48,23 +49,24 @@ saleemkhan/
 └── tsconfig.base.json
 ```
 
-See [apps/api/README.md](apps/api/README.md) for local API usage. PostgreSQL, Projects, and Railway are later milestones.
+See [apps/api/README.md](apps/api/README.md) for local API and PostgreSQL usage. Projects and Railway are later milestones.
 
 Future applications and libraries will be added only when there is a concrete need.
 
 ## Technology choices
 
-| Area             | Choice                | Notes                                                               |
-| ---------------- | --------------------- | ------------------------------------------------------------------- |
-| Framework        | Angular 22            | Deliberate demonstration of primary expertise                       |
-| Workspace        | Nx 23                 | Prepared for multi-app growth without creating empty apps now       |
-| Package manager  | pnpm                  | Efficient installs and workspace-friendly                           |
-| Language         | TypeScript (strict)   | No `any` without justification                                      |
-| Rendering        | Static prerender      | SEO + simple Vercel deploy                                          |
-| State            | Signals / local state | No NgRx yet                                                         |
-| API              | NestJS 11 + Fastify   | Modular monolith at `apps/api`; health/ready only in this milestone |
-| Frontend hosting | Vercel                | Static Portfolio and Blog                                           |
-| API hosting      | Railway (future)      | Planned; not configured in this milestone                           |
+| Area             | Choice                | Notes                                                             |
+| ---------------- | --------------------- | ----------------------------------------------------------------- |
+| Framework        | Angular 22            | Deliberate demonstration of primary expertise                     |
+| Workspace        | Nx 23                 | Prepared for multi-app growth without creating empty apps now     |
+| Package manager  | pnpm                  | Efficient installs and workspace-friendly                         |
+| Language         | TypeScript (strict)   | No `any` without justification                                    |
+| Rendering        | Static prerender      | SEO + simple Vercel deploy                                        |
+| State            | Signals / local state | No NgRx yet                                                       |
+| API              | NestJS 11 + Fastify   | Modular monolith at `apps/api`; health/ready + Drizzle/PostgreSQL |
+| Persistence      | PostgreSQL + Drizzle  | Owned exclusively by `apps/api`; local Compose; Railway later     |
+| Frontend hosting | Vercel                | Static Portfolio and Blog                                         |
+| API hosting      | Railway (future)      | Planned; not configured in this milestone                         |
 
 ## Local development
 
@@ -72,6 +74,7 @@ Future applications and libraries will be added only when there is a concrete ne
 
 - Node.js 22+
 - pnpm 10+
+- Docker (local PostgreSQL via Compose)
 
 ### Install
 
@@ -84,7 +87,15 @@ pnpm install
 ```bash
 pnpm start          # portfolio
 pnpm start:blog     # blog
-pnpm start:api      # API at http://localhost:3000
+pnpm start:api      # API at http://localhost:3000 (requires local PostgreSQL)
+```
+
+Local API database:
+
+```bash
+docker compose up -d postgres
+pnpm db:migrate
+pnpm start:api
 ```
 
 ### Workspace quality checks

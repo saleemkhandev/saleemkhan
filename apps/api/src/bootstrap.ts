@@ -11,7 +11,8 @@ import { GLOBAL_PREFIX, REQUEST_ID_HEADER } from './common/constants.js';
 import { createFastifyLoggerOptions } from './common/logging/logger.js';
 import { setupOpenApi } from './common/openapi/openapi.js';
 import { resolveRequestId } from './common/request-id/request-id.js';
-import { AppConfig, loadConfig } from './config/configuration.js';
+import { loadConfig } from './config/configuration.js';
+import type { AppConfig } from './config/configuration.js';
 
 export interface CreateAppOptions {
   readonly env?: NodeJS.ProcessEnv;
@@ -38,7 +39,7 @@ export async function createApp(
   });
 
   const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
+    AppModule.forRoot(config),
     adapter,
     {
       bufferLogs: enableLogger,

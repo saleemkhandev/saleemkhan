@@ -8,7 +8,7 @@ export function setupOpenApi(app: INestApplication): void {
     new DocumentBuilder()
       .setTitle('Developer Platform API')
       .setDescription(
-        'Public HTTP API for the Saleem platform. This foundation exposes health and readiness only.',
+        'Public HTTP API for the Saleem platform. This milestone exposes health, database-aware readiness, and persistence infrastructure. Domain APIs are later.',
       )
       .setVersion(API_VERSION)
       .build(),

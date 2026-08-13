@@ -19,7 +19,10 @@
     "affected:lint": "nx affected -t lint",
     "affected:typecheck": "nx affected -t typecheck",
     "affected:test": "nx affected -t test",
-    "affected:build": "nx affected -t build --configuration=production"
+    "affected:build": "nx affected -t build --configuration=production",
+    "db:generate": "drizzle-kit generate --config apps/api/drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config apps/api/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config apps/api/drizzle.config.ts"
   },
   "engines": {
     "node": ">=22"
@@ -41,8 +44,10 @@
     "@nestjs/platform-fastify": "^11.1.29",
     "@nestjs/swagger": "^11.4.6",
     "@vercel/analytics": "^2.0.1",
+    "drizzle-orm": "^0.45.2",
     "express": "^4.21.2",
     "fastify": "^5.11.0",
+    "postgres": "^3.4.9",
     "reflect-metadata": "^0.2.2",
     "rxjs": "~7.8.0",
     "zod": "^4.4.3"
@@ -67,6 +72,7 @@
     "@types/node": "^22.0.0",
     "@typescript-eslint/utils": "^8.58.0",
     "angular-eslint": "^22.0.0",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "gray-matter": "^4.0.3",

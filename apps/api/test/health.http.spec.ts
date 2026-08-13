@@ -25,10 +25,11 @@ describe('GET /v1/health', () => {
     assert.equal(body['version'], API_VERSION);
     assert.equal(body['NODE_ENV'], undefined);
     assert.equal(body['DATABASE_URL'], undefined);
+    assert.equal(body['checks'], undefined);
   });
 });
 
-describe('GET /v1/ready', () => {
+describe('GET /v1/ready without PostgreSQL', () => {
   let app: NestFastifyApplication;
 
   before(async () => {
@@ -39,20 +40,21 @@ describe('GET /v1/ready', () => {
     await app.close();
   });
 
-  it('returns 200 when the application has initialized', async () => {
+  it('returns 503 when the database is not configured', async () => {
     const response = await inject(app, { method: 'GET', url: '/v1/ready' });
     const body = response.json() as {
       status: string;
-      checks: { application: string };
+      checks: { application: string; database: string };
     };
 
-    assert.equal(response.statusCode, 200);
-    assert.equal(body.status, 'ok');
+    assert.equal(response.statusCode, 503);
+    assert.equal(body.status, 'not_ready');
     assert.equal(body.checks.application, 'ok');
+    assert.equal(body.checks.database, 'error');
     assert.equal(
-      'database' in body.checks,
+      JSON.stringify(body).includes('postgresql://'),
       false,
-      'must not pretend a database exists',
+      'must not expose connection strings',
     );
   });
 });

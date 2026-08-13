@@ -48,10 +48,27 @@ describe('createApp configuration failures', () => {
             NODE_ENV: 'development',
             HOST: '0.0.0.0',
             PORT: '0',
+            DATABASE_URL:
+              'postgresql://postgres:postgres@localhost:5432/saleem_platform',
           },
           logger: false,
         }),
       /Invalid API configuration/,
+    );
+  });
+
+  it('fails startup when DATABASE_URL is missing in development', async () => {
+    await assert.rejects(
+      () =>
+        createApp({
+          env: {
+            NODE_ENV: 'development',
+            HOST: '0.0.0.0',
+            PORT: '3000',
+          },
+          logger: false,
+        }),
+      /DATABASE_URL/,
     );
   });
 });

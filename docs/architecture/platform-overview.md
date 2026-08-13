@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`saleem-platform` is an Nx monorepo for a personal engineering platform. Public frontends are Angular. A Developer Platform API (`apps/api`, NestJS + Fastify) exists as a health/ready foundation; persistence and remaining V1 domains are later milestones.
+`saleem-platform` is an Nx monorepo for a personal engineering platform. Public frontends are Angular. A Developer Platform API (`apps/api`, NestJS + Fastify) exists with a local PostgreSQL + Drizzle persistence foundation. Remaining V1 domains and Railway are later milestones.
 
 It combines:
 
@@ -32,7 +32,7 @@ Current public site:
               Portfolio App           Blog App
 ```
 
-Planned (Projects frontend, PostgreSQL, and Railway are not in the repository yet; `apps/api` foundation exists):
+Planned (Projects frontend and Railway are not in the repository yet; `apps/api` and local PostgreSQL exist):
 
 ```text
                          saleemkhan.dev              api.saleemkhan.dev
@@ -114,13 +114,15 @@ URL:
 
 `https://saleemkhan.dev/architecture`
 
-### Developer Platform API (foundation)
+### Developer Platform API (persistence foundation)
 
-Independently deployable modular monolith at `apps/api`. This milestone exposes health and readiness only.
+Independently deployable modular monolith at `apps/api`. This milestone exposes health, database-aware readiness, and PostgreSQL/Drizzle infrastructure. There is no Projects API yet.
 
 Planned URL:
 
 `https://api.saleemkhan.dev`
+
+Local PostgreSQL is provided by root `compose.yaml`. See [apps/api/README.md](../../apps/api/README.md).
 
 See ADR-0004 through ADR-0007.
 
@@ -139,7 +141,7 @@ saleem-platform/
 ├── apps/
 │   ├── portfolio/
 │   ├── blog/
-│   ├── api/                 # planned
+│   ├── api/                 # Developer Platform API
 │   ├── projects/
 │   ├── playground/
 │   ├── architecture-lab/
@@ -211,7 +213,7 @@ libs/utils
 
 The backend was deferred until Portfolio and Blog existed as static products.
 
-That decision is now superseded by ADR-0004: a Developer Platform API exists as a NestJS/Fastify foundation. PostgreSQL and remaining V1 domains are not implemented yet.
+That decision is now superseded by ADR-0004: a Developer Platform API exists as a NestJS/Fastify service with local PostgreSQL + Drizzle. Remaining V1 domains and Railway are not implemented yet.
 
 Planned flow:
 
