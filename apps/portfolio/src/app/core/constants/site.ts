@@ -29,11 +29,11 @@ export const SITE = {
   tagline:
     'Building scalable software, exploring architecture, and documenting the journey from Senior Engineer to Staff Engineer and beyond.',
   shortBio:
-    'Senior Software Engineer with over 10 years of experience designing and delivering scalable products across the stack.',
+    'Senior Software Engineer with 10+ years building large-scale enterprise web applications using Angular, TypeScript, JavaScript, and Node.js.',
   biography:
-    'Senior Software Engineer with over 10 years of experience designing and building software across frontend, backend, and cloud. I work end to end — from product interfaces and APIs to microservices, data platforms, and the systems that keep them reliable in production. This site is my public engineering home for architecture thinking, technical experiments, and the journey toward Staff Engineer and architectural leadership.',
+    'Senior Software Engineer with 10+ years of experience building large-scale enterprise web applications using Angular, TypeScript, JavaScript, and Node.js. I lead frontend architecture, deliver end-to-end features, design reusable UI components, and collaborate across teams — with a strong background in performance, accessibility, REST APIs, scalable application design, CI/CD, and modern AI-assisted development including Spec-Driven Development and agentic workflows. This site is my public engineering home for architecture thinking, technical experiments, and the journey toward Staff Engineer and architectural leadership.',
   description:
-    'Saleem Khan is a Senior Software Engineer in Bengaluru with 10+ years building scalable full-stack products, APIs, and cloud systems. Portfolio, experience, and CV at saleemkhan.dev.',
+    'Saleem Khan is a Senior Software Engineer in Bengaluru with 10+ years building large-scale Angular and full-stack products, APIs, and cloud systems. Portfolio, experience, and CV at saleemkhan.dev.',
   pageTitle: 'Saleem Khan | Senior Software Engineer | Bengaluru',
   keywords: [
     'Saleem Khan',
@@ -63,6 +63,7 @@ export const SITE = {
     'Full-Stack Engineer',
     'Frontend Architect',
     'Software Architect',
+    'Staff Software Engineer',
   ] as const,
   navigation: [
     { label: 'Intro', href: '#intro' },
@@ -80,8 +81,10 @@ export const SITE = {
       period: 'Jul 2024 — Present',
       highlights: [
         'Contributing to a next-generation email security platform spanning multiple products, built with Angular micro frontends in an Nx monorepo.',
+        'Adopted Spec-Driven Development and agentic coding workflows to turn requirements into structured specifications, implementation plans, and production-ready code.',
         'Owned features from UI components and state management through API consumption, error handling, and contract alignment with backend teams.',
-        'Improved shared UI libraries and build tooling, contributing to platform quality and cross-team delivery.',
+        'Delivered end-to-end features across frontend and backend, including user flows, forms, and data tables.',
+        'Improved shared UI libraries and build tooling, contributing to platform quality, consistency, and cross-team delivery.',
       ],
     },
     {
@@ -89,9 +92,9 @@ export const SITE = {
       title: 'Senior Software Engineer',
       period: 'Sep 2021 — Jul 2024',
       highlights: [
-        'Led the migration of existing applications to a new internal framework, ensuring a seamless transition and improved performance.',
-        'Integrated Changelog with Kafka and Elasticsearch, enhancing client module functionality and enabling real-time data processing.',
-        'Participated in architectural discussions and decisions, contributing insights and best practices.',
+        'Led the migration of existing enterprise applications to a new internal framework, ensuring a seamless transition, minimal disruption, and improved system performance.',
+        'Integrated Changelog tracking with Kafka and Elasticsearch, enhancing client module functionality and enabling real-time data processing.',
+        'Participated in architectural discussions and complexity analysis, contributing software design practices for scalable services.',
       ],
     },
     {
@@ -99,9 +102,9 @@ export const SITE = {
       title: 'Software Developer Sr',
       period: 'Mar 2020 — Sep 2021',
       highlights: [
-        'Designed and built a leave application using Angular.',
-        'Managed the end-to-end leave application cycle, from request submission to final approval.',
-        'Contributed to major design discussions that improved architecture, usability, and overall user experience.',
+        'Designed and built a leave application suite using Angular, Node.js, Express.js, and MongoDB.',
+        'Managed the end-to-end leave application cycle, from request submission and workflow tracking to final approval.',
+        'Contributed to system design discussions that improved architecture, usability, security, and overall user experience.',
       ],
     },
     {
@@ -109,9 +112,9 @@ export const SITE = {
       title: 'Technical Engineer',
       period: 'Feb 2018 — Mar 2020',
       highlights: [
-        'Developed frontend components and business logic with Angular.',
-        'Implemented Angular routing and state management.',
-        'Conducted code reviews.',
+        'Developed frontend components and business logic using Angular, Node.js, Express.js, and MongoDB.',
+        'Implemented Angular routing, client-side state management, and backend data flow.',
+        'Conducted code reviews to maintain quality, maintainability, and engineering standards.',
       ],
     },
     {
@@ -119,8 +122,8 @@ export const SITE = {
       title: 'UI Developer',
       period: 'Feb 2016 — Feb 2018',
       highlights: [
-        'Collaborated with senior developers to design and modify HTML, CSS, and JavaScript for web pages.',
-        'Implemented interactive features with JavaScript, including form validation and dynamic content.',
+        'Collaborated with senior developers to design, structure, and modify HTML, CSS, and JavaScript for web pages.',
+        'Implemented interactive UI features with JavaScript, including client-side form validation and dynamic content.',
       ],
     },
   ] satisfies readonly ExperienceRole[],
@@ -167,12 +170,17 @@ export const SITE = {
         'GCP',
         'Azure',
         'Cloud Security',
+        'Linux',
+        'Shell Scripting',
       ],
     },
     {
       title: 'Practices',
       items: [
         'Test Driven Development',
+        'Spec-Driven Development',
+        'AI-Assisted Development',
+        'Agentic Coding',
         'Root Cause Analysis',
         'Debugging',
         'Code Review',
